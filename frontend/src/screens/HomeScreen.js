@@ -6,10 +6,11 @@ import logger from 'use-reducer-logger';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Product from '../components/Product';
+import { Helmet } from 'react-helmet-async';
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'FETCH REQUEST':
+    case 'FETCH_REQUEST':
       return { ...state, loading: true };
     case 'FETCH_SUCCESS':
       return { ...state, products: action.payload, loading: false };
@@ -43,6 +44,9 @@ function HomeScreen() {
   }, []);
   return (
     <div>
+      <Helmet>
+        <title>Zoomies & Co</title>
+      </Helmet>
       <h1>Featured Items</h1>
       <div className="products">
         {loading ? (
