@@ -6,7 +6,7 @@ import ListGroup from 'react-bootstrap/esm/ListGroup';
 import Badge from 'react-bootstrap/esm/Badge';
 import Card from 'react-bootstrap/esm/Card';
 import Button from 'react-bootstrap/esm/Button';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Rating from '../components/Rating';
 import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
@@ -28,6 +28,7 @@ const reducer = (state, action) => {
 };
 
 function ProductScreen() {
+  const navigate = useNavigate();
   const params = useParams();
   const { slug } = params;
 
@@ -64,6 +65,7 @@ function ProductScreen() {
       type: 'BASKET_ADD_ITEM',
       payload: { ...product, quantity },
     });
+    navigate('/basket');
   };
 
   return loading ? (

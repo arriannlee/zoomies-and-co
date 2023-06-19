@@ -8,6 +8,7 @@ import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useContext } from 'react';
 import { Store } from './Store';
+import BasketScreen from './screens/BasketScreen';
 
 function App() {
   const { state } = useContext(Store);
@@ -22,7 +23,7 @@ function App() {
                 <Navbar.Brand>Zoomies & Co</Navbar.Brand>
               </LinkContainer>
               <Nav className="me-auto">
-                <Link to="/cart" className="nav-link">
+                <Link to="/basket" className="nav-link">
                   Basket
                   {basket.basketItems.length > 0 && (
                     <Badge pill bg="danger">
@@ -38,6 +39,7 @@ function App() {
           <Container className="mt-3">
             <Routes>
               <Route path="/product/:slug" element={<ProductScreen />} />
+              <Route path="/basket" element={<BasketScreen />} />
               <Route path="/" element={<HomeScreen />} />
             </Routes>
           </Container>
