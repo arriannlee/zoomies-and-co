@@ -26,7 +26,7 @@ function App() {
                   Basket
                   {basket.basketItems.length > 0 && (
                     <Badge pill bg="danger">
-                      {basket.basketItems.length}
+                      {basket.basketItems.reduce((a, c) => a + c.quantity, 0)}
                     </Badge>
                   )}
                 </Link>
