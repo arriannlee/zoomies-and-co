@@ -1,8 +1,24 @@
+import bcrypt from 'bcryptjs';
+
 const data = {
+  users: [
+    {
+      name: 'admin',
+      email: 'admin@test.com',
+      password: bcrypt.hashSync('123456'),
+      isAdmin: true,
+    },
+    {
+      name: 'Bob',
+      email: 'bob@bobsbobbin.com',
+      password: bcrypt.hashSync('123456'),
+      isAdmin: false,
+    },
+  ],
   products: [
     {
-      name: 'Nike Slim Shirt',
-      slug: 'nike-slim-shirt',
+      name: 'Nike Skinny Shirt',
+      slug: 'nike-skinny-shirt',
       category: 'Shirts',
       image: '/images/p1.jpg',
       price: 120,
