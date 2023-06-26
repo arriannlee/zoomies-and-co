@@ -3,6 +3,9 @@ import { createContext, useReducer } from 'react';
 export const Store = createContext();
 
 const initialState = {
+  userInfo: localStorage.getItem('userInfo')
+    ? JSON.parse(localStorage.getItem('userInfo'))
+    : null,
   basket: {
     basketItems: localStorage.getItem('basketItems')
       ? JSON.parse(localStorage.getItem('basketItems'))
@@ -30,14 +33,19 @@ function reducer(state, action) {
         (item) => item._id !== action.payload._id
       );
       localStorage.setItem('basketItems', JSON.stringify(basketItems));
-
       return { ...state, basket: { ...state.basket, basketItems } };
     }
+    case 'USER_SIGNIN':
+      return { ...state, userInfo: action.payload };
+    case 'USER_SIGNOUT':
+      return {
+        ...state,
+        userInfo: null,
+      };
     default:
       return state;
   }
 }
-
 // HOF Higher order function
 
 export function StoreProvider(props) {
