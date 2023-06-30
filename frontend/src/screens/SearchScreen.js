@@ -197,7 +197,7 @@ export default function SearchScreen() {
                   Any
                 </Link>
               </li>
-              {brand.map((b) => (
+              {brands.map((b) => (
                 <li key={b}>
                   <Link
                     className={b === brand ? 'text-bold' : ''}
