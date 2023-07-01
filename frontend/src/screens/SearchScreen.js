@@ -85,6 +85,8 @@ export default function SearchScreen() {
   const sp = new URLSearchParams(search);
   const category = sp.get('category') || 'all';
   const brand = sp.get('brand') || 'all';
+  const colour = sp.get('colour') || 'all';
+  const material = sp.get('material') || 'all';
 
   const query = sp.get('query') || 'all';
   const price = sp.get('price') || 'all';
@@ -102,7 +104,7 @@ export default function SearchScreen() {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `/api/products/search?page=${page}&query=${query}&category=${category}&brand=${brand}&price=${price}&rating=${rating}&order=${order}`
+          `/api/products/search?page=${page}&query=${query}&category=${category}&brand=${brand}&colour=${colour}&material=${material}&price=${price}&rating=${rating}&order=${order}`
         );
         console.log('API Response:', data);
 
@@ -115,7 +117,18 @@ export default function SearchScreen() {
       }
     };
     fetchData();
-  }, [category, brand, error, order, page, price, query, rating]);
+  }, [
+    category,
+    brand,
+    colour,
+    material,
+    error,
+    order,
+    page,
+    price,
+    query,
+    rating,
+  ]);
 
   const [categories, setCategories] = useState([]);
   useEffect(() => {
@@ -143,10 +156,38 @@ export default function SearchScreen() {
     fetchBrands();
   }, [dispatch]);
 
+  const [colours, setColours] = useState([]);
+  useEffect(() => {
+    const fetchColours = async () => {
+      try {
+        const { data } = await axios.get('/api/products/colours');
+        setColours(data);
+      } catch (err) {
+        toast.error(getError(err));
+      }
+    };
+    fetchColours();
+  }, [dispatch]);
+
+  const [materials, setMaterials] = useState([]);
+  useEffect(() => {
+    const fetchMaterials = async () => {
+      try {
+        const { data } = await axios.get('/api/products/materials');
+        setMaterials(data);
+      } catch (err) {
+        toast.error(getError(err));
+      }
+    };
+    fetchMaterials();
+  }, [dispatch]);
+
   const getFilterUrl = (filter, skipPathname) => {
     const filterPage = filter.page || page;
     const filterCategory = filter.category || category;
     const filterBrand = filter.brand || brand;
+    const filterColour = filter.colour || colour;
+    const filterMaterial = filter.material || material;
 
     const filterQuery = filter.query || query;
     const filterRating = filter.rating || rating;
@@ -154,7 +195,7 @@ export default function SearchScreen() {
     const sortOrder = filter.order || order;
     return `${
       skipPathname ? '' : '/search?'
-    }&category=${filterCategory}&brand=${filterBrand}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
+    }&category=${filterCategory}&brand=${filterBrand}&colour=${filterColour}&material=${filterMaterial}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
   };
   return (
     <div>
@@ -204,6 +245,52 @@ export default function SearchScreen() {
                     to={getFilterUrl({ brand: b })}
                   >
                     {b}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <h3>Colour</h3>
+          <div>
+            <ul>
+              <li>
+                <Link
+                  className={'all' === colour ? 'text-bold' : ''}
+                  to={getFilterUrl({ colour: 'all' })}
+                >
+                  Any
+                </Link>
+              </li>
+              {colours.map((c) => (
+                <li key={c}>
+                  <Link
+                    className={c === colour ? 'text-bold' : ''}
+                    to={getFilterUrl({ colour: c })}
+                  >
+                    {c}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <h3>Material</h3>
+          <div>
+            <ul>
+              <li>
+                <Link
+                  className={'all' === material ? 'text-bold' : ''}
+                  to={getFilterUrl({ material: 'all' })}
+                >
+                  Any
+                </Link>
+              </li>
+              {materials.map((m) => (
+                <li key={m}>
+                  <Link
+                    className={m === material ? 'text-bold' : ''}
+                    to={getFilterUrl({ material: m })}
+                  >
+                    {m}
                   </Link>
                 </li>
               ))}
@@ -269,10 +356,14 @@ export default function SearchScreen() {
                     {countProducts === 0 ? 'No' : countProducts} Results
                     {query !== 'all' && ' : ' + query}
                     {category !== 'all' && ' : ' + category}
+                    {brand !== 'all' && ' : ' + brand}
+                    {colour !== 'all' && ' : ' + colour}
                     {price !== 'all' && ' : Price ' + price}
                     {rating !== 'all' && ' : Rating ' + rating + ' & up'}
                     {query !== 'all' ||
                     category !== 'all' ||
+                    brand !== 'all' ||
+                    colour !== 'all' ||
                     rating !== 'all' ||
                     price !== 'all' ? (
                       <Button

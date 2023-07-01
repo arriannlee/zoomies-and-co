@@ -34,7 +34,7 @@ const productSchema = new mongoose.Schema(
     material: { type: String, required: true },
     length: { type: Number, required: true },
     width: { type: Number, required: true },
-    thickness: { type: Number, required: false },
+    thickness: { type: Number, required: true },
   },
   {
     timestamps: true,
