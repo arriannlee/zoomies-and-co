@@ -162,7 +162,7 @@ productRouter.get(
     const brand = query.brand || '';
     const colour = query.colour || '';
     const material = query.material || '';
-
+    const thickness = query.thickness || '';
     const price = query.price || '';
     const rating = query.rating || '';
     const order = query.order || '';
@@ -182,6 +182,8 @@ productRouter.get(
     const brandFilter = brand && brand !== 'all' ? { brand } : {};
     const colourFilter = colour && colour !== 'all' ? { colour } : {};
     const materialFilter = material && material !== 'all' ? { material } : {};
+    const thicknessFilter =
+      thickness && thickness !== 'all' ? { thickness } : {};
 
     const ratingFilter =
       rating && rating !== 'all'
@@ -220,6 +222,7 @@ productRouter.get(
       ...brandFilter,
       ...colourFilter,
       ...materialFilter,
+      ...thicknessFilter,
       ...priceFilter,
       ...ratingFilter,
     })
@@ -233,6 +236,7 @@ productRouter.get(
       ...brandFilter,
       ...colourFilter,
       ...materialFilter,
+      ...thicknessFilter,
       ...priceFilter,
       ...ratingFilter,
     });
@@ -277,6 +281,15 @@ productRouter.get(
     res.send(materials);
   })
 );
+
+productRouter.get(
+  '/thicknesses',
+  expressAsyncHandler(async (req, res) => {
+    const thicknesses = await Product.find().distinct('thickness');
+    res.send(thicknesses);
+  })
+);
+
 productRouter.get('/slug/:slug', async (req, res) => {
   const product = await Product.findOne({ slug: req.params.slug });
   if (product) {

@@ -87,7 +87,7 @@ export default function SearchScreen() {
   const brand = sp.get('brand') || 'all';
   const colour = sp.get('colour') || 'all';
   const material = sp.get('material') || 'all';
-
+  const thickness = sp.get('thickness') || 'all';
   const query = sp.get('query') || 'all';
   const price = sp.get('price') || 'all';
   const rating = sp.get('rating') || 'all';
@@ -104,7 +104,7 @@ export default function SearchScreen() {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `/api/products/search?page=${page}&query=${query}&category=${category}&brand=${brand}&colour=${colour}&material=${material}&price=${price}&rating=${rating}&order=${order}`
+          `/api/products/search?page=${page}&query=${query}&category=${category}&brand=${brand}&colour=${colour}&material=${material}&thickness=${thickness}&price=${price}&rating=${rating}&order=${order}`
         );
         console.log('API Response:', data);
 
@@ -122,6 +122,7 @@ export default function SearchScreen() {
     brand,
     colour,
     material,
+    thickness,
     error,
     order,
     page,
@@ -182,20 +183,33 @@ export default function SearchScreen() {
     fetchMaterials();
   }, [dispatch]);
 
+  const [thicknesses, setThicknesses] = useState([]);
+  useEffect(() => {
+    const fetchThicknesses = async () => {
+      try {
+        const { data } = await axios.get('/api/products/thicknesses');
+        setThicknesses(data);
+      } catch (err) {
+        toast.error(getError(err));
+      }
+    };
+    fetchThicknesses();
+  }, [dispatch]);
+
   const getFilterUrl = (filter, skipPathname) => {
     const filterPage = filter.page || page;
     const filterCategory = filter.category || category;
     const filterBrand = filter.brand || brand;
     const filterColour = filter.colour || colour;
     const filterMaterial = filter.material || material;
-
+    const filterThickness = filter.thickness || thickness;
     const filterQuery = filter.query || query;
     const filterRating = filter.rating || rating;
     const filterPrice = filter.price || price;
     const sortOrder = filter.order || order;
     return `${
       skipPathname ? '' : '/search?'
-    }&category=${filterCategory}&brand=${filterBrand}&colour=${filterColour}&material=${filterMaterial}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
+    }&category=${filterCategory}&brand=${filterBrand}&colour=${filterColour}&material=${filterMaterial}&thickness=${filterThickness}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
   };
   return (
     <div>
@@ -291,6 +305,29 @@ export default function SearchScreen() {
                     to={getFilterUrl({ material: m })}
                   >
                     {m}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <h3>Thickness</h3>
+          <div>
+            <ul>
+              <li>
+                <Link
+                  className={'all' === thickness ? 'text-bold' : ''}
+                  to={getFilterUrl({ thickness: 'all' })}
+                >
+                  Any
+                </Link>
+              </li>
+              {thicknesses.map((t) => (
+                <li key={t}>
+                  <Link
+                    className={t === thickness ? 'text-bold' : ''}
+                    to={getFilterUrl({ thickness: t })}
+                  >
+                    {t}mm
                   </Link>
                 </li>
               ))}
