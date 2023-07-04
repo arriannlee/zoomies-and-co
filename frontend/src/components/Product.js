@@ -37,10 +37,10 @@ function Product(props) {
           alt={product.name}
         />
       </Link>
-      <Card.Body>
+      <Card.Body className="fixed-overview-body">
         <div className="nameRating">
           <Link to={`/product/${product.slug}`}>
-            <Card.Title className="overviewName">{product.name}</Card.Title>
+            <Card.Title className="overviewName">{product.name} </Card.Title>
           </Link>
           <div className="overviewRating mb-3">
             <Rating rating={product.rating} numReviews={product.numReviews} />
@@ -56,8 +56,11 @@ function Product(props) {
               Out of Stock
             </Button>
           ) : (
-            <Button onClick={() => addToBasketHandler(product)}>
-              Add to Basket{' '}
+            <Button
+              className="btn-primary btn-outline"
+              onClick={() => addToBasketHandler(product)}
+            >
+              Add to Basket
             </Button>
           )}
         </Row>

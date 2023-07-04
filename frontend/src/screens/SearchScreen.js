@@ -216,14 +216,15 @@ export default function SearchScreen() {
       <Helmet>
         <title>Search Products</title>
       </Helmet>
+
       <Row>
-        <Col md={3}>
-          <h3>Category</h3>
-          <div>
+        <Col md={3} className="searchBar">
+          <div className="mb-3">
+            <h3 className="text-bold">CATEGORY</h3>
             <ul>
               <li>
                 <Link
-                  className={'all' === category ? 'text-bold' : ''}
+                  className={'all' === category ? 'text-bold selected' : ''}
                   to={getFilterUrl({ category: 'all' })}
                 >
                   Any
@@ -232,7 +233,7 @@ export default function SearchScreen() {
               {categories.map((c) => (
                 <li key={c}>
                   <Link
-                    className={c === category ? 'text-bold' : ''}
+                    className={c === category ? 'text-bold selected' : ''}
                     to={getFilterUrl({ category: c })}
                   >
                     {c}
@@ -241,12 +242,12 @@ export default function SearchScreen() {
               ))}
             </ul>
           </div>
-          <h3>Brand</h3>
-          <div>
+          <div classNAme="mb-3">
+            <h3 className="text-bold">BRAND</h3>
             <ul>
               <li>
                 <Link
-                  className={'all' === brand ? 'text-bold' : ''}
+                  className={'all' === brand ? 'text-bold selected' : ''}
                   to={getFilterUrl({ brand: 'all' })}
                 >
                   Any
@@ -255,7 +256,7 @@ export default function SearchScreen() {
               {brands.map((b) => (
                 <li key={b}>
                   <Link
-                    className={b === brand ? 'text-bold' : ''}
+                    className={b === brand ? 'text-bold selected' : ''}
                     to={getFilterUrl({ brand: b })}
                   >
                     {b}
@@ -264,12 +265,12 @@ export default function SearchScreen() {
               ))}
             </ul>
           </div>
-          <h3>Colour</h3>
-          <div>
+          <div classNAme="mb-3">
+            <h3 className="text-bold">COLOUR</h3>
             <ul>
               <li>
                 <Link
-                  className={'all' === colour ? 'text-bold' : ''}
+                  className={'all' === colour ? 'text-bold selected ' : ''}
                   to={getFilterUrl({ colour: 'all' })}
                 >
                   Any
@@ -278,7 +279,7 @@ export default function SearchScreen() {
               {colours.map((c) => (
                 <li key={c}>
                   <Link
-                    className={c === colour ? 'text-bold' : ''}
+                    className={c === colour ? 'text-bold selected' : ''}
                     to={getFilterUrl({ colour: c })}
                   >
                     {c}
@@ -287,12 +288,12 @@ export default function SearchScreen() {
               ))}
             </ul>
           </div>
-          <h3>Material</h3>
+          <h3 className="text-bold">MATERIAL</h3>
           <div>
             <ul>
               <li>
                 <Link
-                  className={'all' === material ? 'text-bold' : ''}
+                  className={'all' === material ? 'text-bold selected' : ''}
                   to={getFilterUrl({ material: 'all' })}
                 >
                   Any
@@ -301,7 +302,7 @@ export default function SearchScreen() {
               {materials.map((m) => (
                 <li key={m}>
                   <Link
-                    className={m === material ? 'text-bold' : ''}
+                    className={m === material ? 'text-bold selected' : ''}
                     to={getFilterUrl({ material: m })}
                   >
                     {m}
@@ -310,12 +311,12 @@ export default function SearchScreen() {
               ))}
             </ul>
           </div>
-          <h3>Thickness</h3>
+          <h3 className="text-bold">THICKNESS</h3>
           <div>
             <ul>
               <li>
                 <Link
-                  className={'all' === thickness ? 'text-bold' : ''}
+                  className={'all' === thickness ? 'text-bold selected' : ''}
                   to={getFilterUrl({ thickness: 'all' })}
                 >
                   Any
@@ -324,7 +325,7 @@ export default function SearchScreen() {
               {thicknesses.map((t) => (
                 <li key={t}>
                   <Link
-                    className={t === thickness ? 'text-bold' : ''}
+                    className={t === thickness ? 'text-bold selected' : ''}
                     to={getFilterUrl({ thickness: t })}
                   >
                     {t}mm
@@ -334,11 +335,11 @@ export default function SearchScreen() {
             </ul>
           </div>
           <div>
-            <h3>Price</h3>
+            <h3 className="text-bold">PRICE</h3>
             <ul>
               <li>
                 <Link
-                  className={'all' === price ? 'text-bold' : ''}
+                  className={'all' === price ? 'text-bold selected' : ''}
                   to={getFilterUrl({ price: 'all' })}
                 >
                   Any
@@ -348,7 +349,7 @@ export default function SearchScreen() {
                 <li key={p.value}>
                   <Link
                     to={getFilterUrl({ price: p.value })}
-                    className={p.value === price ? 'text-bold' : ''}
+                    className={p.value === price ? 'text-bold selected' : ''}
                   >
                     {p.name}
                   </Link>
@@ -357,13 +358,15 @@ export default function SearchScreen() {
             </ul>
           </div>
           <div>
-            <h3>Average Customer Rating</h3>
+            <h3 className="text-bold">RATING</h3>
             <ul>
               {ratings.map((r) => (
                 <li key={r.name}>
                   <Link
                     to={getFilterUrl({ rating: r.rating })}
-                    className={`${r.rating}` === `${rating}` ? 'text-bold' : ''}
+                    className={
+                      `${r.rating}` === `${rating}` ? 'text-bold selected' : ''
+                    }
                   >
                     <Rating caption={' & up'} rating={r.rating}></Rating>
                   </Link>
@@ -372,7 +375,7 @@ export default function SearchScreen() {
               <li>
                 <Link
                   to={getFilterUrl({ rating: 'all' })}
-                  className={rating === 'all' ? 'text-bold' : ''}
+                  className={rating === 'all' ? 'text-bold selected' : ''}
                 >
                   <Rating caption={' & up'} rating={0}></Rating>
                 </Link>
@@ -387,6 +390,30 @@ export default function SearchScreen() {
             <MessageBox variant="danger">{error}</MessageBox>
           ) : (
             <>
+              <div>
+                <Row>
+                  <h2>YOGA MATS</h2>
+                  <p>
+                    Designed with devotion and meticulously crafted for yogis at
+                    any stage, our mats are a harmonious blend of comfort and
+                    stability. Imagine them as the soft clouds of the fitness
+                    cosmos, supporting your joints as you delve into the depths
+                    of downward dogs and the spirit of warrior poses.
+                  </p>
+                  <p>
+                    Whether you're a seasoned yogi or a tentative explorer, our
+                    mats offer the foundation for your practice, both physically
+                    and metaphorically. These mats aren't mere floor coverings;
+                    they're a path to enlightenment for your body and soul.
+                  </p>
+                  <p>
+                    So, why wait? Immerse yourself in the world of Ommatopia,
+                    where every unrolling leads to a fresh experience of
+                    tranquility. Let's embark on this voyage together – Unroll
+                    Your Zen NOW!
+                  </p>
+                </Row>
+              </div>
               <Row className="justify-content-between mb-3">
                 <Col md={6}>
                   <div>

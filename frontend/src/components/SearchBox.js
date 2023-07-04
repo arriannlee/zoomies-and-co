@@ -30,7 +30,12 @@ export default function SearchBox() {
           aria-label="Search..."
           aria-describedby="button-search"
         ></FormControl>
-        <Button variant="outline-primary" type="submit" id="button-search">
+        <Button
+          className="btn-primary"
+          variant="outline-light"
+          type="submit"
+          id="button-search"
+        >
           <i className="fas fa-search"></i>
         </Button>
       </InputGroup>

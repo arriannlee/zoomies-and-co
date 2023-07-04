@@ -57,7 +57,7 @@ function Rating(props) {
           }
         />
       </span>
-      {caption ? <span>{caption}</span> : <span>{` (${numReviews})`}</span>}
+      {caption ? <span>{'caption'}</span> : <span>{` (${numReviews})`}</span>}
     </div>
   );
 }
