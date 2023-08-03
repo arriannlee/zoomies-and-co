@@ -34,12 +34,20 @@ main {
   flex: 1;
 }
 
+.btn-primary {
+  background-color: #f0c040;
+  color: black;
+}
+
 .products {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
+.rating span {
+  color: #ffc000;
+}
 .product {
   border: 1px var(--light-alt) solid;
   margin: 1rem;
