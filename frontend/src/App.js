@@ -7,7 +7,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import Badge from 'react-bootstrap/Badge';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-
 import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useContext } from 'react';
@@ -15,6 +14,7 @@ import { Store } from './Store';
 import BasketScreen from './screens/BasketScreen';
 import SigninScreen from './screens/SigninScreen';
 import DeliveryAddressScreen from './screens/DeliveryAddressScreen';
+import SignupScreen from './screens/SignupScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -77,6 +77,7 @@ function App() {
               <Route path="/basket" element={<BasketScreen />} />
               <Route path="/basket/signin" element={<SigninScreen />} />
               <Route path="/signin" element={<SigninScreen />} />
+              <Route path="/signup" element={<SignupScreen />} />
               <Route path="/delivery" element={<DeliveryAddressScreen />} />
               <Route path="/" element={<HomeScreen />} />
             </Routes>
