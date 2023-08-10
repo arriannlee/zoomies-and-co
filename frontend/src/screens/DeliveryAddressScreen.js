@@ -13,33 +13,24 @@ export default function DeliveryAddressScreen() {
     userInfo,
     basket: { deliveryAddress },
   } = state;
-
   const [fullName, setFullName] = useState(deliveryAddress.fullName || '');
-  const [addressLine1, setAddressLine1] = useState(
-    deliveryAddress.addressLine1 || ''
-  );
-  const [addressLine2, setAddressLine2] = useState(
-    deliveryAddress.addressLine2 || ''
-  );
-  const [townCity, setTownCity] = useState(deliveryAddress.townCity || '');
-  const [county, setCounty] = useState(deliveryAddress.county || '');
+  const [address, setAddress] = useState(deliveryAddress.address || '');
+  const [city, setCity] = useState(deliveryAddress.city || '');
   const [postcode, setPostcode] = useState(deliveryAddress.postcode || '');
-  const [country, setCountry] = useState(deliveryAddress.country || '');
   useEffect(() => {
     if (!userInfo) {
       navigate('/signin?redirect=/delivery');
     }
   }, [userInfo, navigate]);
+  const [country, setCountry] = useState(deliveryAddress.country || '');
   const submitHandler = (e) => {
     e.preventDefault();
     ctxDispatch({
       type: 'SAVE_DELIVERY_ADDRESS',
       payload: {
         fullName,
-        addressLine1,
-        addressLine2,
-        townCity,
-        county,
+        address,
+        city,
         postcode,
         country,
       },
@@ -48,10 +39,8 @@ export default function DeliveryAddressScreen() {
       'deliveryAddress',
       JSON.stringify({
         fullName,
-        addressLine1,
-        addressLine2,
-        townCity,
-        county,
+        address,
+        city,
         postcode,
         country,
       })
@@ -60,7 +49,9 @@ export default function DeliveryAddressScreen() {
   };
   return (
     <div>
-      <Helmet>Delivery Address</Helmet>
+      <Helmet>
+        <title>Delivery Address</title>
+      </Helmet>
       <CheckoutSteps step1 step2></CheckoutSteps>
       <div className="container small-container">
         <h1 className="my-3">Delivery Address</h1>
@@ -73,35 +64,20 @@ export default function DeliveryAddressScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="addressLine1">
-            <Form.Label>Address Line 1 (or Company Name)</Form.Label>
+          <Form.Group className="mb-3" controlId="address">
+            <Form.Label>Address</Form.Label>
             <Form.Control
-              value={addressLine1}
-              onChange={(e) => setAddressLine1(e.target.value)}
-              required
-            />
-          </Form.Group>{' '}
-          <Form.Group className="mb-3" controlId="addressLine2">
-            <Form.Label>Address Line 2 (optional)</Form.Label>
-            <Form.Control
-              value={addressLine2}
-              onChange={(e) => setAddressLine2(e.target.value)}
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="townCity">
-            <Form.Label>Town/City</Form.Label>
+          <Form.Group className="mb-3" controlId="city">
+            <Form.Label>City</Form.Label>
             <Form.Control
-              value={townCity}
-              onChange={(e) => setTownCity(e.target.value)}
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
               required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="county">
-            <Form.Label>County (if applicable)</Form.Label>
-            <Form.Control
-              value={county}
-              onChange={(e) => setCounty(e.target.value)}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="postcode">

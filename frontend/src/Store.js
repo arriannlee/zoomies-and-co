@@ -9,7 +9,10 @@ const initialState = {
   basket: {
     deliveryAddress: localStorage.getItem('deliveryAddress')
       ? JSON.parse(localStorage.getItem('deliveryAddress'))
-      : [],
+      : {},
+    paymentMethod: localStorage.getItem('paymentMethod')
+      ? localStorage.getItem('paymentMethod')
+      : '',
     basketItems: localStorage.getItem('basketItems')
       ? JSON.parse(localStorage.getItem('basketItems'))
       : [],
@@ -47,14 +50,25 @@ function reducer(state, action) {
         basket: {
           basketItems: [],
           deliveryAddress: {},
+          paymentMethod: '',
         },
       };
     case 'SAVE_DELIVERY_ADDRESS':
+      console.log('Reducer handling SAVE_DELIVERY_ADDRESS', action.payload);
+
       return {
         ...state,
         basket: {
           ...state.basket,
           deliveryAddress: action.payload,
+        },
+      };
+    case 'SAVE_PAYMENT_METHOD':
+      return {
+        ...state,
+        basket: {
+          ...state.basket,
+          paymentMethod: action.payload,
         },
       };
     default:
