@@ -41,6 +41,8 @@ function reducer(state, action) {
       localStorage.setItem('basketItems', JSON.stringify(basketItems));
       return { ...state, basket: { ...state.basket, basketItems } };
     }
+    case 'BASKET_CLEAR':
+      return { ...state, basket: { ...state.basket, basketItems: [] } };
     case 'USER_SIGNIN':
       return { ...state, userInfo: action.payload };
     case 'USER_SIGNOUT':
