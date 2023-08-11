@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
-
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
@@ -20,8 +19,9 @@ export default function PlaceOrderScreen() {
     basket.basketItems.reduce((a, c) => a + c.quantity * c.price, 0)
   );
 
-  basket.deliveryPrice = basket.itemsPrice > 30 ? round2(0) : round2(3.49);
+  basket.postagePrice = basket.itemsPrice > 30 ? round2(0) : round2(3.49);
 
+  basket.totalPrice = basket.itemsPrice + basket.postagePrice;
   const placeOrderHandler = async () => {};
 
   useEffect(() => {
