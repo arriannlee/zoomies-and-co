@@ -23,6 +23,7 @@ import OrderHistoryScreen from './screens/OrderHistoryScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import Button from 'react-bootstrap/Button';
 import { getError } from './utils';
+import SearchBox from './components/SearchBox';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -42,7 +43,7 @@ function App() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const { data } = await axios.get('/api/products/categories');
+        const { data } = await axios.get(`/api/products/categories`);
         setCategories(data);
       } catch (err) {
         toast.error(getError(err));
@@ -70,11 +71,13 @@ function App() {
               >
                 <i className="fas fa-bars"></i>
               </Button>
+
               <LinkContainer to="/">
                 <Navbar.Brand>Zoomies & Co</Navbar.Brand>
               </LinkContainer>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
+                <SearchBox />
                 <Nav className="me-auto w-100 justify-content-end">
                   <Link to="/basket" className="nav-link">
                     Basket
