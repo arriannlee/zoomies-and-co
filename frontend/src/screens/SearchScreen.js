@@ -11,7 +11,7 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import Button from 'react-bootstrap/Button';
 import Product from '../components/Product';
-import { LinkContainer } from 'react-router-bootstrap';
+import LinkContainer from 'react-router-bootstrap/LinkContainer';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -62,20 +62,20 @@ const prices = [
 
 export const ratings = [
   {
-    name: '4 stars & up',
-    value: '4',
+    name: '4stars & up',
+    rating: '4',
   },
   {
-    name: '3 stars & up',
-    value: '3',
+    name: '3stars & up',
+    rating: '3',
   },
   {
-    name: '2 stars & up',
-    value: '2',
+    name: '2stars & up',
+    rating: '2',
   },
   {
-    name: '1 stars & up',
-    value: '1',
+    name: '1stars & up',
+    rating: '1',
   },
 ];
 
@@ -87,8 +87,8 @@ export default function SearchScreen() {
   const query = sp.get('query') || 'all';
   const price = sp.get('price') || 'all';
   const rating = sp.get('rating') || 'all';
-  const order = sp.get('order') || 'all';
-  const page = sp.get('page') || 'all';
+  const order = sp.get('order') || 'newest';
+  const page = sp.get('page') || 1;
 
   const [{ loading, error, products, pages, countProducts }, dispatch] =
     useReducer(reducer, {
@@ -100,9 +100,10 @@ export default function SearchScreen() {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          //removed ? for search params THIS IS WHERE THE ERROR IS
-          `/api/products/search?page=${page}&query=${query}&category${category}&price=${price}&rating=${rating}&order=${order}`
+          `/api/products/search?page=${page}&query=${query}&category=${category}&price=${price}&rating=${rating}&order=${order}`
         );
+        console.log('API Response:', data);
+
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (err) {
         dispatch({
@@ -127,17 +128,17 @@ export default function SearchScreen() {
     fetchCategories();
   }, [dispatch]);
 
-  const getFilterUrl = (filter) => {
+  const getFilterUrl = (filter, skipPathname) => {
     const filterPage = filter.page || page;
     const filterCategory = filter.category || category;
     const filterQuery = filter.query || query;
     const filterRating = filter.rating || rating;
     const filterPrice = filter.price || price;
     const sortOrder = filter.order || order;
-    //removed ? from search params
-    return `/search/category=${filterCategory}&query=${filterQuery}&rating=${filterRating}&price=${filterPrice}&order=${sortOrder}&page=${filterPage}`;
+    return `${
+      skipPathname ? '' : '/search?'
+    }category=${filterCategory}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
   };
-
   return (
     <div>
       <Helmet>
@@ -273,7 +274,10 @@ export default function SearchScreen() {
                   <LinkContainer
                     key={x + 1}
                     className="mx-1"
-                    to={getFilterUrl({ page: x + 1 })}
+                    to={{
+                      pathname: '/search',
+                      search: getFilterUrl({ page: x + 1 }, true),
+                    }}
                   >
                     <Button
                       className={Number(page) === x + 1 ? 'text-bold' : ''}

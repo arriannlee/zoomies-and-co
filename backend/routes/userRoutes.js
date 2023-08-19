@@ -65,7 +65,7 @@ userRouter.put(
         token: generateToken(updateUser),
       });
     } else {
-      res.send(404).send({ message: 'User not found' });
+      res.status(404).send({ message: 'User not found' });
     }
   })
 );

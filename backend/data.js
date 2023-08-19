@@ -54,7 +54,7 @@ const data = {
       price: 25,
       countInStock: 15,
       brand: 'Nike',
-      rating: 4.5,
+      rating: 2,
       numReviews: 14,
       description: 'high quality product',
     },

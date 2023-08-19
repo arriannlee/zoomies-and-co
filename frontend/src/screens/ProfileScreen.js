@@ -34,6 +34,12 @@ export default function ProfileScreen() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    // if (password === confirmPassword) {
+    if (password !== confirmPassword) {
+      toast.error('Passwords do not match');
+      return;
+    }
+
     try {
       const { data } = await axios.put(
         '/api/users/profile',
@@ -59,7 +65,6 @@ export default function ProfileScreen() {
       toast.error(getError(err));
     }
   };
-
   return (
     <div className="container small-container">
       <Helmet>
@@ -82,19 +87,22 @@ export default function ProfileScreen() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            autoComplete="email"
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
+            autoComplete="new-password"
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="password">
+        <Form.Group className="mb-3" controlId="confirmPassowrd">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"
+            autoComplete="new-password"
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </Form.Group>

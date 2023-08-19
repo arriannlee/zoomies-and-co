@@ -11,6 +11,7 @@ export default function SearchBox() {
   const submitHandler = (e) => {
     e.preventDefault();
     navigate(query ? `/search/?query=${query}` : '/search');
+    e.target.reset();
   };
 
   return (
@@ -20,7 +21,11 @@ export default function SearchBox() {
           type="text"
           name="q"
           id="q"
-          onChange={(e) => setQuery(e.target.value)}
+          // onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {
+            console.log(e.target.value); // Check if this prints the input value
+            setQuery(e.target.value);
+          }}
           placeholder="search..."
           aria-label="Search..."
           aria-describedby="button-search"
