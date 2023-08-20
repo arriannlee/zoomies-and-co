@@ -11,7 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "npm-check-updates": "^16.11.1"
+    "npm-check-updates": "^16.11.1",
+    "react-google-charts": "^4.0.1"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
