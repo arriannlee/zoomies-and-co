@@ -49,7 +49,7 @@ const data = {
     {
       name: 'Nike Slim Pants',
       slug: 'nike-slim-pants',
-      category: 'Shirts',
+      category: 'Pants',
       image: '/images/p3.jpg',
       price: 25,
       countInStock: 15,
