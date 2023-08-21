@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { useContext, useEffect, useReducer } from 'react';
-import Col from 'react-bootstrap/esm/Col';
-import Row from 'react-bootstrap/esm/Row';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import ListGroup from 'react-bootstrap/esm/ListGroup';
-import Badge from 'react-bootstrap/esm/Badge';
-import Card from 'react-bootstrap/esm/Card';
-import Button from 'react-bootstrap/esm/Button';
+import Badge from 'react-bootstrap/Badge';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import Nav from 'react-bootstrap/Nav';
 import { useNavigate, useParams } from 'react-router-dom';
 import Rating from '../components/Rating';
 import { Helmet } from 'react-helmet-async';
@@ -74,32 +75,44 @@ function ProductScreen() {
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div>
+      <Helmet>
+        <title>{product.name}</title>
+      </Helmet>
       <Row>
-        <Col md={6}>
+        <Col md={5}>
           <img
             className="img-large"
             src={product.image}
             alt={product.name}
           ></img>
         </Col>
-        <Col md={3}>
+        <Col md={4}>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <Helmet>
-                <title>{product.name}</title>
-              </Helmet>
               <h1>{product.name}</h1>
-            </ListGroup.Item>
-            <ListGroup.Item>
               <Rating
                 rating={product.rating}
                 numReviews={product.numReviews}
               ></Rating>
             </ListGroup.Item>
-            <ListGroup.Item>Price: £{product.price}</ListGroup.Item>
             <ListGroup.Item>
-              Description:
-              <p>{product.description}</p>
+              <ul>
+                <li>
+                  <i className="fas fa-paw"></i> {product.bullet1}
+                </li>{' '}
+                <li>
+                  <i className="fas fa-paw"></i> {product.bullet1}
+                </li>{' '}
+                <li>
+                  <i className="fas fa-paw"></i> {product.bullet1}
+                </li>{' '}
+                <li>
+                  <i className="fas fa-paw"></i> {product.bullet1}
+                </li>{' '}
+                <li>
+                  <i className="fas fa-paw"></i> {product.bullet1}
+                </li>
+              </ul>
             </ListGroup.Item>
           </ListGroup>
         </Col>
@@ -139,6 +152,13 @@ function ProductScreen() {
           </Card>
         </Col>
       </Row>
+
+      <Card>
+        <Card.Header>Description</Card.Header>
+        <Card.Body>
+          <Card.Text>{product.description}</Card.Text>
+        </Card.Body>
+      </Card>
     </div>
   );
 }

@@ -62,20 +62,25 @@ export default function ProductEditScreen() {
   const [countInStock, setCountInStock] = useState('');
   const [brand, setBrand] = useState('');
   const [description, setDescription] = useState('');
+  const [bullet1, setBullet1] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
         const { data } = await axios.get(`/api/products/${productId}`);
+        const generatedSlug = data.name.toLowerCase().replace(/ /g, '-');
+
         setName(data.name);
-        setSlug(data.slug);
+        setSlug(generatedSlug);
+        // setSlug(data.slug);
         setPrice(data.price);
         setImage(data.image);
         setCategory(data.category);
         setCountInStock(data.countInStock);
         setBrand(data.brand);
         setDescription(data.description);
+        setBullet1(data.bullet1);
         dispatch({ type: 'FETCH_SUCCESS' });
       } catch (err) {
         dispatch({
@@ -103,6 +108,7 @@ export default function ProductEditScreen() {
           brand,
           countInStock,
           description,
+          bullet1,
         },
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -143,9 +149,9 @@ export default function ProductEditScreen() {
   return (
     <Container className="small-container">
       <Helmet>
-        <title>Edit Product ${productId}</title>
+        <title>New Product ${productId}</title>
       </Helmet>
-      <h1>Edit Product {productId}</h1>
+      <h1>Add Product {productId}</h1>
 
       {loading ? (
         <LoadingBox></LoadingBox>
@@ -154,47 +160,10 @@ export default function ProductEditScreen() {
       ) : (
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Name</Form.Label>
+            <Form.Label>Product Name</Form.Label>
             <Form.Control
               value={name}
               onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="slug">
-            <Form.Label>Slug</Form.Label>
-            <Form.Control
-              value={slug}
-              onChange={(e) => setSlug(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Price</Form.Label>
-            <Form.Control
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="image">
-            <Form.Label>Image File</Form.Label>
-            <Form.Control
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="imageFile">
-            <Form.Label>Upload File</Form.Label>
-            <Form.Control type="file" onChange={uploadFileHandler} />
-            {loadingUpload && <LoadingBox></LoadingBox>}
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="category">
-            <Form.Label>Category</Form.Label>
-            <Form.Control
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
               required
             />
           </Form.Group>
@@ -206,14 +175,6 @@ export default function ProductEditScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="countInStock">
-            <Form.Label>Count In Stock</Form.Label>
-            <Form.Control
-              value={countInStock}
-              onChange={(e) => setCountInStock(e.target.value)}
-              required
-            />
-          </Form.Group>
           <Form.Group className="mb-3" controlId="description">
             <Form.Label>Description</Form.Label>
             <Form.Control
@@ -222,6 +183,60 @@ export default function ProductEditScreen() {
               required
             />
           </Form.Group>
+          <Form.Group className="mb-3" controlId="category">
+            <Form.Label>Category</Form.Label>
+            <Form.Control
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="bullet1">
+            <Form.Label>Bullet One</Form.Label>
+            <Form.Control
+              value={bullet1}
+              onChange={(e) => setBullet1(e.target.value)}
+              required
+            />
+          </Form.Group>
+          {/* <Form.Group className="mb-3" controlId="slug">
+            <Form.Label>Slug</Form.Label>
+            <Form.Control
+              value={slug}
+              onChange={(e) => setSlug(e.target.value)}
+              required
+            />
+          </Form.Group> */}
+          <Form.Group className="mb-3" controlId="countInStock">
+            <Form.Label>Count In Stock</Form.Label>
+            <Form.Control
+              value={countInStock}
+              onChange={(e) => setCountInStock(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="name">
+            <Form.Label>Price</Form.Label>
+            <Form.Control
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              required
+            />
+          </Form.Group>
+          {/* <Form.Group className="mb-3" controlId="image">
+            <Form.Label>Image File</Form.Label>
+            <Form.Control
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
+              required
+            />
+          </Form.Group> */}
+          <Form.Group className="mb-3" controlId="imageFile">
+            <Form.Label>Upload File</Form.Label>
+            <Form.Control type="file" onChange={uploadFileHandler} />
+            {loadingUpload && <LoadingBox></LoadingBox>}
+          </Form.Group>
+
           <div className="mb-3">
             <Button disabled={loadingUpdate} type="submit">
               Update

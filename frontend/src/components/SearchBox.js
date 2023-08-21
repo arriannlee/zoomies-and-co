@@ -26,7 +26,7 @@ export default function SearchBox() {
             console.log(e.target.value); // Check if this prints the input value
             setQuery(e.target.value);
           }}
-          placeholder="search..."
+          placeholder="Search..."
           aria-label="Search..."
           aria-describedby="button-search"
         ></FormControl>

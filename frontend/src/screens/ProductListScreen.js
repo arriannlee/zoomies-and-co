@@ -9,6 +9,7 @@ import { Store } from '../Store';
 import MessageBox from '../components/MessageBox';
 import LoadingBox from '../components/LoadingBox';
 import { getError } from '../utils';
+import AdminSearchBox from '../components/AdminSearchBox';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -141,6 +142,8 @@ export default function ProductListScreen() {
         </Col>
         <Col className="col text-end">
           <div>
+            <AdminSearchBox />
+            &nbsp;
             <Button type="button" onClick={createHandler}>
               Add Product
             </Button>
