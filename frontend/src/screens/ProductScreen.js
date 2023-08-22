@@ -96,23 +96,31 @@ function ProductScreen() {
               ></Rating>
             </ListGroup.Item>
             <ListGroup.Item>
-              <ul>
-                <li>
+              <Row>
+                <Col>
                   <i className="fas fa-paw"></i> {product.bullet1}
-                </li>{' '}
-                <li>
-                  <i className="fas fa-paw"></i> {product.bullet1}
-                </li>{' '}
-                <li>
-                  <i className="fas fa-paw"></i> {product.bullet1}
-                </li>{' '}
-                <li>
-                  <i className="fas fa-paw"></i> {product.bullet1}
-                </li>{' '}
-                <li>
-                  <i className="fas fa-paw"></i> {product.bullet1}
-                </li>
-              </ul>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <i className="fas fa-paw"></i> {product.bullet2}
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <i className="fas fa-paw"></i> {product.bullet3}
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <i className="fas fa-paw"></i> {product.bullet4}
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <i className="fas fa-paw"></i> {product.bullet5}
+                </Col>
+              </Row>
             </ListGroup.Item>
           </ListGroup>
         </Col>

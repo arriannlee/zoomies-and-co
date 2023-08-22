@@ -63,6 +63,10 @@ export default function ProductEditScreen() {
   const [brand, setBrand] = useState('');
   const [description, setDescription] = useState('');
   const [bullet1, setBullet1] = useState('');
+  const [bullet2, setBullet2] = useState('');
+  const [bullet3, setBullet3] = useState('');
+  const [bullet4, setBullet4] = useState('');
+  const [bullet5, setBullet5] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,6 +85,10 @@ export default function ProductEditScreen() {
         setBrand(data.brand);
         setDescription(data.description);
         setBullet1(data.bullet1);
+        setBullet2(data.bullet2);
+        setBullet3(data.bullet3);
+        setBullet4(data.bullet4);
+        setBullet5(data.bullet5);
         dispatch({ type: 'FETCH_SUCCESS' });
       } catch (err) {
         dispatch({
@@ -109,6 +117,10 @@ export default function ProductEditScreen() {
           countInStock,
           description,
           bullet1,
+          bullet2,
+          bullet3,
+          bullet4,
+          bullet5,
         },
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -196,6 +208,38 @@ export default function ProductEditScreen() {
             <Form.Control
               value={bullet1}
               onChange={(e) => setBullet1(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="bullet2">
+            <Form.Label>Bullet Two</Form.Label>
+            <Form.Control
+              value={bullet2}
+              onChange={(e) => setBullet2(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="bullet3">
+            <Form.Label>Bullet Three</Form.Label>
+            <Form.Control
+              value={bullet3}
+              onChange={(e) => setBullet3(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="bullet4">
+            <Form.Label>Bullet Four</Form.Label>
+            <Form.Control
+              value={bullet4}
+              onChange={(e) => setBullet4(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="bullet5">
+            <Form.Label>Bullet Five</Form.Label>
+            <Form.Control
+              value={bullet5}
+              onChange={(e) => setBullet5(e.target.value)}
               required
             />
           </Form.Group>

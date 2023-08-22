@@ -13,6 +13,10 @@ const productSchema = new mongoose.Schema(
     rating: { type: Number, required: true },
     numReviews: { type: Number, required: true },
     bullet1: { type: String, required: true },
+    bullet2: { type: String, required: true },
+    bullet3: { type: String, required: true },
+    bullet4: { type: String, required: true },
+    bullet5: { type: String, required: true },
   },
   {
     timestamps: true,

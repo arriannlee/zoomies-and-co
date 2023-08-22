@@ -26,7 +26,11 @@ productRouter.post(
       rating: 0,
       numReviews: 0,
       description: 'sample description',
-      bullet1: 'sample 1',
+      bullet1: 'bullet 1',
+      bullet2: 'bullet 2',
+      bullet3: 'bullet 3',
+      bullet4: 'bullet 4',
+      bullet5: 'bullet 5',
     });
     const product = await newProduct.save();
     res.send({ message: 'Product Created', product });
@@ -49,6 +53,10 @@ productRouter.put(
       product.countInStock = req.body.countInStock;
       product.description = req.body.description;
       product.bullet1 = req.body.bullet1;
+      product.bullet2 = req.body.bullet2;
+      product.bullet3 = req.body.bullet3;
+      product.bullet4 = req.body.bullet4;
+      product.bullet5 = req.body.bullet5;
       await product.save();
       res.send({ message: 'Product Updated' });
     } else {
