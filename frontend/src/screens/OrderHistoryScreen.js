@@ -75,7 +75,15 @@ export default function OrderHistoryScreen() {
             {orders.map((order) => (
               <tr key={order._id}>
                 <td>{order._id}</td>
-                <td>{order.createdAt.substring(0, 10)}</td>
+                <td>
+                  {`${order.createdAt.substring(
+                    8,
+                    10
+                  )}/${order.createdAt.substring(
+                    5,
+                    7
+                  )}/${order.createdAt.substring(0, 4)}`}
+                </td>
                 <td>{order.totalPrice.toFixed(2)}</td>
                 <td>{order.isPaid ? order.paidAt.substring(0, 10) : 'No'}</td>
                 <td>

@@ -208,7 +208,7 @@ export default function ProductEditScreen() {
             <Form.Control
               value={bullet1}
               onChange={(e) => setBullet1(e.target.value)}
-              required
+              // required
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="bullet2">
@@ -216,7 +216,7 @@ export default function ProductEditScreen() {
             <Form.Control
               value={bullet2}
               onChange={(e) => setBullet2(e.target.value)}
-              required
+              // required
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="bullet3">
@@ -224,7 +224,7 @@ export default function ProductEditScreen() {
             <Form.Control
               value={bullet3}
               onChange={(e) => setBullet3(e.target.value)}
-              required
+              // required
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="bullet4">
@@ -232,7 +232,7 @@ export default function ProductEditScreen() {
             <Form.Control
               value={bullet4}
               onChange={(e) => setBullet4(e.target.value)}
-              required
+              // required
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="bullet5">
@@ -240,7 +240,7 @@ export default function ProductEditScreen() {
             <Form.Control
               value={bullet5}
               onChange={(e) => setBullet5(e.target.value)}
-              required
+              // required
             />
           </Form.Group>
           {/* <Form.Group className="mb-3" controlId="slug">
