@@ -157,7 +157,9 @@ function ProductScreen() {
             <Col md={7}>
               <ListGroup.Item>
                 <h1>{product.name}</h1>
+
                 <h3>Brand: {product.brand}</h3>
+
                 <div className="my-2 pointer" onClick={scrollToReviews}>
                   <Rating
                     rating={product.rating}
@@ -174,6 +176,13 @@ function ProductScreen() {
               <Card className="">
                 <Card.Body>
                   <ListGroup variant="flush">
+                    {/* <Row className="mb-3">
+                      <Col md={4}>Colour: </Col>
+                      <Col className="ar" md={8}>
+                        {product.colourDescription}
+                      </Col>
+                    </Row> */}
+
                     <Row className="mb-3">
                       <Col>Price: </Col>
                       <Col className="ar">£{product.price}</Col>
@@ -208,9 +217,14 @@ function ProductScreen() {
               </div> */}
             </Col>
           </Row>
-          <Row className="my-3">
-            <ListGroup.Item>{product.description}</ListGroup.Item>
+
+          <Row>
+            <p>
+              <ListGroup.Item>{product.description}</ListGroup.Item>
+            </p>
           </Row>
+
+          <p className="strong">Features</p>
 
           <ListGroup.Item>
             <Row>
@@ -237,6 +251,16 @@ function ProductScreen() {
               <p>- {product.bullet5}</p>
             </Row>
           </ListGroup.Item>
+          <p>
+            <span className="strong">Colour </span> {product.colour}
+          </p>
+          <p>
+            <span className="strong">Material </span> {product.material}
+          </p>
+          <p>
+            <span className="strong">Dimension </span> {product.length}cm x{' '}
+            {product.width}cm x {product.thickness}mm
+          </p>
         </Col>
       </Row>
 

@@ -221,6 +221,10 @@ li {
   transform: scale(1.05); /* Add scaling effect on hover */
 }
 
+.strong {
+  font-weight: bold;
+}
+
 /* .fixed-overview {
   height: 650px;
 } */

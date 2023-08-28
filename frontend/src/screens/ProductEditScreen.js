@@ -6,6 +6,8 @@ import { Store } from '../Store';
 import { getError } from '../utils';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
@@ -41,6 +43,22 @@ const reducer = (state, action) => {
   }
 };
 
+const colorOptions = [
+  'Red',
+  'Blue',
+  'Green',
+  'Yellow',
+  'Purple',
+  'Orange',
+  'Pink',
+  'Brown',
+  'Black',
+  'White',
+  'Gray',
+  'Multicoloured',
+  'Natural',
+];
+
 export default function ProductEditScreen() {
   const params = useParams(); // /product/:id
   const { id: productId } = params;
@@ -48,8 +66,9 @@ export default function ProductEditScreen() {
 
   const { state } = useContext(Store);
   const { userInfo } = state;
-  const [{ loading, error, loadingUpdate, loadingUpload }, dispatch] =
+  const [{ loading, error, loadingUpdate, loadingUpload, product }, dispatch] =
     useReducer(reducer, {
+      product: [],
       loading: true,
       error: '',
     });
@@ -67,6 +86,17 @@ export default function ProductEditScreen() {
   const [bullet3, setBullet3] = useState('');
   const [bullet4, setBullet4] = useState('');
   const [bullet5, setBullet5] = useState('');
+  const [colour, setColour] = useState('');
+  const [colourDescription, setColourDescription] = useState('');
+  const [material, setMaterial] = useState('');
+  const [length, setLength] = useState('');
+  const [width, setWidth] = useState('');
+  const [thickness, setThickness] = useState('');
+  const [selectedColor, setSelectedColor] = useState('');
+
+  const handleColorChange = (e) => {
+    setSelectedColor(e.target.value);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -89,6 +119,14 @@ export default function ProductEditScreen() {
         setBullet3(data.bullet3);
         setBullet4(data.bullet4);
         setBullet5(data.bullet5);
+        setColour(data.colour);
+        setColourDescription(data.colourDescription);
+        setMaterial(data.material);
+        setLength(data.length);
+        setWidth(data.width);
+        setThickness(data.thickness);
+        setSelectedColor(data.SelectedColor);
+
         dispatch({ type: 'FETCH_SUCCESS' });
       } catch (err) {
         dispatch({
@@ -121,6 +159,12 @@ export default function ProductEditScreen() {
           bullet3,
           bullet4,
           bullet5,
+          colour,
+          colourDescription,
+          material,
+          length,
+          width,
+          thickness,
         },
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -189,14 +233,57 @@ export default function ProductEditScreen() {
             />
             <small>{remainingCharacters} characters remaining</small>
           </Form.Group>
-          <Form.Group className="mb-3" controlId="brand">
-            <Form.Label>Brand</Form.Label>
-            <Form.Control
-              value={brand}
-              onChange={(e) => setBrand(e.target.value)}
-              required
-            />
-          </Form.Group>
+          <Row>
+            <Col md={4}>
+              <Form.Group className="mb-3" controlId="colour">
+                <Form.Label>Colour</Form.Label>
+                <Form.Control
+                  value={colour}
+                  onChange={(e) => setColour(e.target.value)}
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col md={8}>
+              <Form.Group className="mb-3" controlId="colourDescription">
+                <Form.Label>Colour Description</Form.Label>
+                <Form.Control
+                  value={colourDescription}
+                  onChange={(e) =>
+                    setColourDescription(
+                      e.target.value.replace(/\b\w/g, (char) =>
+                        char.toUpperCase()
+                      )
+                    )
+                  }
+                  required
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={6}>
+              <Form.Group className="mb-3" controlId="brand">
+                <Form.Label>Brand</Form.Label>
+                <Form.Control
+                  value={brand}
+                  onChange={(e) => setBrand(e.target.value)}
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group className="mb-3" controlId="category">
+                <Form.Label>Category</Form.Label>
+                <Form.Control
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  required
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+
           <Form.Group className="mb-3" controlId="description">
             <Form.Label>Description</Form.Label>
             <Form.Control
@@ -204,14 +291,6 @@ export default function ProductEditScreen() {
               style={{ height: '150px' }} // Adjust the height as needed
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="category">
-            <Form.Label>Category</Form.Label>
-            <Form.Control
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
               required
             />
           </Form.Group>
@@ -255,6 +334,48 @@ export default function ProductEditScreen() {
               // required
             />
           </Form.Group>
+          <Form.Group className="mb-3" controlId="material">
+            <Form.Label>Material</Form.Label>
+            <Form.Control
+              value={material}
+              onChange={(e) => setMaterial(e.target.value)}
+              required
+            />
+          </Form.Group>
+
+          <Row>
+            <Col md={4}>
+              <Form.Group className="mb-3" controlId="length">
+                <Form.Label>Length (cm)</Form.Label>
+                <Form.Control
+                  value={length}
+                  onChange={(e) => setLength(e.target.value)}
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col md={4}>
+              <Form.Group className="mb-3" controlId="width">
+                <Form.Label>Width (cm)</Form.Label>
+                <Form.Control
+                  value={width}
+                  onChange={(e) => setWidth(e.target.value)}
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col md={4}>
+              <Form.Group className="mb-3" controlId="thickness">
+                <Form.Label>Thickness (mm)</Form.Label>
+                <Form.Control
+                  value={thickness}
+                  onChange={(e) => setThickness(e.target.value)}
+                  required
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+
           {/* <Form.Group className="mb-3" controlId="slug">
             <Form.Label>Slug</Form.Label>
             <Form.Control
@@ -263,22 +384,28 @@ export default function ProductEditScreen() {
               required
             />
           </Form.Group> */}
-          <Form.Group className="mb-3" controlId="countInStock">
-            <Form.Label>Count In Stock</Form.Label>
-            <Form.Control
-              value={countInStock}
-              onChange={(e) => setCountInStock(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Price</Form.Label>
-            <Form.Control
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              required
-            />
-          </Form.Group>
+          <Row>
+            <Col md={6}>
+              <Form.Group className="mb-3" controlId="countInStock">
+                <Form.Label>Count In Stock</Form.Label>
+                <Form.Control
+                  value={countInStock}
+                  onChange={(e) => setCountInStock(e.target.value)}
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group className="mb-3" controlId="name">
+                <Form.Label>Price</Form.Label>
+                <Form.Control
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  required
+                />
+              </Form.Group>
+            </Col>
+          </Row>
           {/* <Form.Group className="mb-3" controlId="image">
             <Form.Label>Image File</Form.Label>
             <Form.Control
@@ -293,6 +420,13 @@ export default function ProductEditScreen() {
             {loadingUpload && <LoadingBox></LoadingBox>}
           </Form.Group>
 
+          <div>
+            <img
+              className="img-small"
+              src={product.image}
+              alt={product.name}
+            ></img>
+          </div>
           <div className="mb-3">
             <Button disabled={loadingUpdate} type="submit">
               Update

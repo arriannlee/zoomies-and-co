@@ -84,6 +84,8 @@ export default function SearchScreen() {
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
   const category = sp.get('category') || 'all';
+  const brand = sp.get('brand') || 'all';
+
   const query = sp.get('query') || 'all';
   const price = sp.get('price') || 'all';
   const rating = sp.get('rating') || 'all';
@@ -100,7 +102,7 @@ export default function SearchScreen() {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `/api/products/search?page=${page}&query=${query}&category=${category}&price=${price}&rating=${rating}&order=${order}`
+          `/api/products/search?page=${page}&query=${query}&category=${category}&brand=${brand}&price=${price}&rating=${rating}&order=${order}`
         );
         console.log('API Response:', data);
 
@@ -113,7 +115,7 @@ export default function SearchScreen() {
       }
     };
     fetchData();
-  }, [category, error, order, page, price, query, rating]);
+  }, [category, brand, error, order, page, price, query, rating]);
 
   const [categories, setCategories] = useState([]);
   useEffect(() => {
@@ -128,16 +130,31 @@ export default function SearchScreen() {
     fetchCategories();
   }, [dispatch]);
 
+  const [brands, setBrands] = useState([]);
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        const { data } = await axios.get('/api/products/brands');
+        setBrands(data);
+      } catch (err) {
+        toast.error(getError(err));
+      }
+    };
+    fetchBrands();
+  }, [dispatch]);
+
   const getFilterUrl = (filter, skipPathname) => {
     const filterPage = filter.page || page;
     const filterCategory = filter.category || category;
+    const filterBrand = filter.brand || brand;
+
     const filterQuery = filter.query || query;
     const filterRating = filter.rating || rating;
     const filterPrice = filter.price || price;
     const sortOrder = filter.order || order;
     return `${
       skipPathname ? '' : '/search?'
-    }category=${filterCategory}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
+    }&category=${filterCategory}&brand=${filterBrand}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
   };
   return (
     <div>
@@ -164,6 +181,29 @@ export default function SearchScreen() {
                     to={getFilterUrl({ category: c })}
                   >
                     {c}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <h3>Brand</h3>
+          <div>
+            <ul>
+              <li>
+                <Link
+                  className={'all' === brand ? 'text-bold' : ''}
+                  to={getFilterUrl({ brand: 'all' })}
+                >
+                  Any
+                </Link>
+              </li>
+              {brand.map((b) => (
+                <li key={b}>
+                  <Link
+                    className={b === brand ? 'text-bold' : ''}
+                    to={getFilterUrl({ brand: b })}
+                  >
+                    {b}
                   </Link>
                 </li>
               ))}

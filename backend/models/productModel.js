@@ -29,6 +29,12 @@ const productSchema = new mongoose.Schema(
     bullet3: { type: String, required: false },
     bullet4: { type: String, required: false },
     bullet5: { type: String, required: false },
+    colour: { type: String, required: true },
+    colourDescription: { type: String, required: true },
+    material: { type: String, required: true },
+    length: { type: Number, required: true },
+    width: { type: Number, required: true },
+    thickness: { type: Number, required: false },
   },
   {
     timestamps: true,
