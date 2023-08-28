@@ -5,10 +5,12 @@ import axios from 'axios';
 // import logger from 'use-reducer-logger';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Carousel from 'react-bootstrap/Carousel';
 import Product from '../components/Product';
 import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import { Container, Image } from 'react-bootstrap';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -49,17 +51,39 @@ function HomeScreen() {
       <Helmet>
         <title>Zoomies & Co</title>
       </Helmet>
-      <h1>Featured Items</h1>
+
+      {/* Carousel */}
+      <Container className="carousel">
+        <Carousel>
+          <Carousel.Item>
+            <Image
+              className="d-block w-100"
+              src="/images/designedwithlove.png"
+              alt="First slide"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <Image
+              className="d-block w-100"
+              src="/images/experiencefreedom.png"
+              alt="First slide"
+            />
+          </Carousel.Item>
+        </Carousel>
+      </Container>
+      <h1 className="my-3">What's New...</h1>
       <div className="products">
         {loading ? (
           <LoadingBox />
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
-          <Row>
+          <Row className="homescreenCard">
             {products.map((product) => (
               <Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
-                <Product product={product}></Product>
+                <div className="product-card">
+                  <Product product={product}></Product>
+                </div>
               </Col>
             ))}
           </Row>

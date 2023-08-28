@@ -25,7 +25,6 @@ import Product from '../components/Product';
 import NewProductsCarousel from '../components/NewProductCarousel';
 import { FloatingLabel } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import USP from '../components/USP';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -127,14 +126,35 @@ function ProductScreen() {
       dispatch({ type: 'CREATE_FAIL' });
     }
   };
-
-  const scrollToReviews = () => {
-    window.scrollTo({
-      behavior: 'smooth',
-      top: reviewsRef.current.offsetTop,
-    });
-  };
-
+  // const submitHandler = async (e) => {
+  //   e.preventDefault();
+  //   if (!comment || !rating) {
+  //     toast.error('Please provide a comment and rating.');
+  //     return;
+  //   }
+  //   try {
+  //     const { data } = await axios.post(
+  //       `/api/products/${product._id}/reviews`,
+  //       { rating, comment, name: userInfo.name },
+  //       { headers: { Authorization: `Bearer ${userInfo.token}` } }
+  //     );
+  //     dispatch({
+  //       type: 'CREATE_SUCCESS',
+  //     });
+  //     toast.success('Thank-you for your review!');
+  //     product.reviews.unshift(data.review);
+  //     product.numReviews = data.numReviews;
+  //     product.rating = data.rating;
+  //     dispatch({ type: 'REFRESH_PRODUCT', payload: product });
+  //     window.scrollTo({
+  //       behavior: 'smooth',
+  //       top: reviewsRef.current.offsetTop,
+  //     });
+  //   } catch (error) {
+  //     toast.error(getError(error));
+  //     dispatch({ type: 'CREATE_FAIL' });
+  //   }
+  // };
   return loading ? (
     <LoadingBox />
   ) : error ? (
@@ -145,100 +165,141 @@ function ProductScreen() {
         <title>{product.name}</title>
       </Helmet>
       <Row>
-        <Col md={4} className="productMainImg">
+        <Col md={5}>
           <img
             className="img-large"
             src={product.image}
             alt={product.name}
           ></img>
         </Col>
-        <Col md={8}>
-          <Row className="my-3">
-            <Col md={7}>
-              <ListGroup.Item>
-                <h1>{product.name}</h1>
-                <h3>Brand: {product.brand}</h3>
-                <div className="my-2 pointer" onClick={scrollToReviews}>
-                  <Rating
-                    rating={product.rating}
-                    numReviews={product.numReviews}
-                  ></Rating>
-                </div>
-                {/* <p className="mt-2">
-                  {product.description.split(' ').slice(0, 20).join(' ')}...{' '}
-                  <a href="description">more</a>
-                </p> */}
-              </ListGroup.Item>
-            </Col>
-            <Col md={5}>
-              <Card className="">
-                <Card.Body>
-                  <ListGroup variant="flush">
-                    <Row className="mb-3">
-                      <Col>Price: </Col>
-                      <Col className="ar">£{product.price}</Col>
-                    </Row>
-                    <Row className="mb-3">
-                      <Col>Availability:</Col>
-                      <Col className="ar">
-                        {product.countInStock > 0 ? (
-                          <Badge bg="success">In Stock</Badge>
-                        ) : (
-                          <Badge bg="danger">Sold Out</Badge>
-                        )}
-                      </Col>
-                    </Row>
-                    {product.countInStock > 0 && (
-                      <div className="d-grid">
-                        <Button onClick={addToBasketHandler} variant="primary">
-                          Add to Basket
-                        </Button>
-                      </div>
-                    )}
-                  </ListGroup>
+        <Col md={4}>
+          <ListGroup.Item>
+            <h1>{product.name}</h1>
+            <h3>Brand: {product.brand}</h3>
+            <Rating
+              rating={product.rating}
+              numReviews={product.numReviews}
+            ></Rating>
+            <p className="mt-2">
+              {product.description.split(' ').slice(0, 20).join(' ')}...{' '}
+              <a href="description">more</a>
+            </p>
+          </ListGroup.Item>
 
-                  {/* <ListGroup.Item>
+          {/* <ListGroup.Item>
+            <Row>
+              <p>
+                <i className="fas fa-paw"></i> {product.bullet1}
+              </p>
+            </Row>
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <Row>
+              <p>
+                <i className="fas fa-paw"></i> {product.bullet1}
+              </p>
+            </Row>
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <Row>
+              <p>
+                '<i className="fas fa-check"></i> {product.bullet1}''
+              </p>
+            </Row>
+          </ListGroup.Item> */}
+        </Col>
+
+        <Col md={3}>
+          <Card className="">
+            <Card.Body>
+              <ListGroup variant="flush">
+                <ListGroup.Item>
+                  <Row>
+                    <Col>£{product.price}</Col>
+                    <Col>
+                      {product.countInStock > 0 ? (
+                        <Badge bg="success">In Stock</Badge>
+                      ) : (
+                        <Badge bg="danger">Sold Out</Badge>
+                      )}
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <div className="d-flex align-items-center">
+                    <span className="me-2">Quantity:</span>
+                    <Button
+                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                      variant="light"
+                      disabled={quantity === 1}
+                    >
+                      -
+                    </Button>
+                    <span className="mx-2">{quantity}</span>
+                    <Button
+                      onClick={() =>
+                        setQuantity(
+                          Math.min(product.countInStock, quantity + 1)
+                        )
+                      }
+                      variant="light"
+                      disabled={quantity === product.countInStock}
+                    >
+                      +
+                    </Button>
+                  </div>
+                </ListGroup.Item>
+                {/* <ListGroup.Item>
+                  <Row>
+                    <Col>Status:</Col>
+                    <Col>
+                      {product.countInStock > 0 ? (
+                        <Badge bg="success">In Stock</Badge>
+                      ) : (
+                        <Badge bg="danger">Sold Out</Badge>
+                      )}
+                    </Col>
+                  </Row>
+                </ListGroup.Item> */}
+                {product.countInStock > 0 && (
+                  <ListGroup.Item>
+                    <div className="d-grid">
+                      <Button onClick={addToBasketHandler} variant="primary">
+                        Add to Basket
+                      </Button>
+                    </div>
+                  </ListGroup.Item>
+                )}
+              </ListGroup>
+
+              {/* <ListGroup.Item>
                 <p>FREE Delivery on all orders over £30!</p>
               </ListGroup.Item> */}
-                </Card.Body>
-              </Card>
-              {/* <div className="iconText">
-                <i className="fas fa-truck"></i>
-                <p>FREE DELIVERY on all orders over £30</p>
-              </div> */}
-            </Col>
-          </Row>
-          <Row className="my-3">
-            <ListGroup.Item>{product.description}</ListGroup.Item>
-          </Row>
+            </Card.Body>
+          </Card>
 
-          <ListGroup.Item>
-            <Row>
-              <p>- {product.bullet1}</p>
-            </Row>
-          </ListGroup.Item>
-          <ListGroup.Item>
-            <Row>
-              <p>- {product.bullet2}</p>
-            </Row>
-          </ListGroup.Item>
-          <ListGroup.Item>
-            <Row>
-              <p>- {product.bullet3}</p>
-            </Row>
-          </ListGroup.Item>
-          <ListGroup.Item>
-            <Row>
-              <p>- {product.bullet4}</p>
-            </Row>
-          </ListGroup.Item>
-          <ListGroup.Item>
-            <Row>
-              <p>- {product.bullet5}</p>
-            </Row>
-          </ListGroup.Item>
+          <div className="iconText">
+            <i className="fas fa-truck"></i>
+            <p>FREE DELIVERY on all orders over £30</p>
+          </div>
         </Col>
       </Row>
+
+      <Card>
+        <Card.Header>
+          <Nav variant="tabs" defaultActiveKey="#description">
+            <Nav.Item>
+              <Nav.Link id="#description">Description</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="#reviews">Reviews</Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </Card.Header>
+        <Card.Body>
+          <Card.Text>{product.description}</Card.Text>
+        </Card.Body>
+      </Card>
 
       {/* <div className="reviewOverview">
         <Row>
@@ -259,7 +320,7 @@ function ProductScreen() {
         <h2 ref={reviewsRef}>Reviews</h2>
         <div className="mb-3">
           {product.reviews.length === 0 && (
-            <MessageBox>There are no reviews</MessageBox>
+            <MessageBox>There is no review</MessageBox>
           )}
         </div>
         <ListGroup>
@@ -337,31 +398,3 @@ function ProductScreen() {
   );
 }
 export default ProductScreen;
-
-// Quantity
-
-/* 
-                    <ListGroup.Item>
-                      <div className="d-flex align-items-center">
-                        <span className="me-2">Quantity:</span>
-                        <Button
-                          onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                          variant="light"
-                          disabled={quantity === 1}
-                        >
-                          -
-                        </Button>
-                        <span className="mx-2">{quantity}</span>
-                        <Button
-                          onClick={() =>
-                            setQuantity(
-                              Math.min(product.countInStock, quantity + 1)
-                            )
-                          }
-                          variant="light"
-                          disabled={quantity === product.countInStock}
-                        >
-                          +
-                        </Button>
-                      </div>
-                    </ListGroup.Item> */

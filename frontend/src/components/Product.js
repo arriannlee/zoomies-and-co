@@ -5,6 +5,7 @@ import Rating from './Rating';
 import axios from 'axios';
 import { useContext } from 'react';
 import { Store } from '../Store';
+import { Col, Row } from 'react-bootstrap';
 
 function Product(props) {
   const { product } = props;
@@ -28,25 +29,38 @@ function Product(props) {
     });
   };
   return (
-    <Card>
+    <Card className="fixed-overview">
       <Link to={`/product/${product.slug}`}>
-        <img src={product.image} className="card-img-top" alt={product.name} />
+        <img
+          src={product.image}
+          className="card-img-top img-med"
+          alt={product.name}
+        />
       </Link>
       <Card.Body>
-        <Link to={`/product/${product.slug}`}>
-          <Card.Title>{product.name}</Card.Title>
-        </Link>
-        <Rating rating={product.rating} numReviews={product.numReviews} />
-        <Card.Text>£{product.price}</Card.Text>
-        {product.countInStock === 0 ? (
-          <Button variant="light" disabled>
-            Out of Stock
-          </Button>
-        ) : (
-          <Button onClick={() => addToBasketHandler(product)}>
-            Add to Basket{' '}
-          </Button>
-        )}
+        <div className="nameRating">
+          <Link to={`/product/${product.slug}`}>
+            <Card.Title className="overviewName">{product.name}</Card.Title>
+          </Link>
+          <div className="overviewRating mb-3">
+            <Rating rating={product.rating} numReviews={product.numReviews} />
+          </div>
+        </div>
+
+        <Row>
+          <Card.Text className="overviewPrice">
+            <h5>£{product.price}</h5>
+          </Card.Text>
+          {product.countInStock === 0 ? (
+            <Button variant="light" disabled>
+              Out of Stock
+            </Button>
+          ) : (
+            <Button onClick={() => addToBasketHandler(product)}>
+              Add to Basket{' '}
+            </Button>
+          )}
+        </Row>
       </Card.Body>
     </Card>
   );

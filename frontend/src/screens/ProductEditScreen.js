@@ -158,6 +158,8 @@ export default function ProductEditScreen() {
     }
   };
 
+  const remainingCharacters = 50 - name.length;
+
   return (
     <Container className="small-container">
       <Helmet>
@@ -175,9 +177,17 @@ export default function ProductEditScreen() {
             <Form.Label>Product Name</Form.Label>
             <Form.Control
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) =>
+                setName(
+                  e.target.value
+                    .slice(0, 50)
+                    .replace(/\b\w/g, (char) => char.toUpperCase())
+                )
+              }
+              maxLength={50}
               required
             />
+            <small>{remainingCharacters} characters remaining</small>
           </Form.Group>
           <Form.Group className="mb-3" controlId="brand">
             <Form.Label>Brand</Form.Label>
@@ -190,6 +200,8 @@ export default function ProductEditScreen() {
           <Form.Group className="mb-3" controlId="description">
             <Form.Label>Description</Form.Label>
             <Form.Control
+              as="textarea" // Use a textarea instead of a regular input
+              style={{ height: '150px' }} // Adjust the height as needed
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               required
