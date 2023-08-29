@@ -49,17 +49,14 @@ function Product(props) {
 
         <Row>
           <Card.Text className="overviewPrice">
-            <h5>£{product.price}</h5>
+            <div>£{product.price}</div>
           </Card.Text>
           {product.countInStock === 0 ? (
             <Button variant="light" disabled>
               Out of Stock
             </Button>
           ) : (
-            <Button
-              className="btn-primary btn-outline"
-              onClick={() => addToBasketHandler(product)}
-            >
+            <Button onClick={() => addToBasketHandler(product)}>
               Add to Basket
             </Button>
           )}

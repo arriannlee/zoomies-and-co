@@ -420,13 +420,13 @@ export default function ProductEditScreen() {
             {loadingUpload && <LoadingBox></LoadingBox>}
           </Form.Group>
 
-          <div>
+          {/* <div>
             <img
               className="img-small"
               src={product.image}
               alt={product.name}
             ></img>
-          </div>
+          </div> */}
           <div className="mb-3">
             <Button disabled={loadingUpdate} type="submit">
               Update

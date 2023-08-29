@@ -30,6 +30,8 @@ import DashboardScreen from './screens/DashboardScreen';
 import AdminRoute from './components/AdminRoute';
 import ProductListScreen from './screens/ProductListScreen';
 import ProductEditScreen from './screens/ProductEditScreen';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -45,6 +47,8 @@ function App() {
 
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
+
+  const currentYear = new Date().getFullYear();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -79,7 +83,7 @@ function App() {
               </Button>
 
               <LinkContainer to="/">
-                <Navbar.Brand>Zoomies & Co</Navbar.Brand>
+                <Navbar.Brand>OMMATOPIA</Navbar.Brand>
               </LinkContainer>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
@@ -224,8 +228,31 @@ function App() {
             </Routes>
           </Container>
         </main>
-        <footer>
-          <div className="text-center">All rights reserved</div>
+
+        <footer className="bg-dark text-light" variant="dark" expand="lg">
+          <Container className="socialIcons my-4">
+            <a href="https://www.facebook.com/" target="_blank">
+              <i className="fab fa-facebook"></i>
+            </a>{' '}
+            <a href="https://www.twitter.com/" target="_blank">
+              <i className="fab fa-twitter"></i>
+            </a>{' '}
+            <a href="https://www.youtube.com/" target="_blank">
+              <i className="fab fa-youtube"></i>
+            </a>
+            <a href="https://www.tiktok.com/" target="_blank">
+              <i className="fab fa-tiktok"></i>
+            </a>
+          </Container>
+          <Container>
+            <Row className="justify-content-center">
+              <Col className="text-center mb-3">
+                <p>
+                  Copyright &copy; {currentYear} OMMATOPIA. All rights reserved.
+                </p>
+              </Col>
+            </Row>
+          </Container>
         </footer>
       </div>
     </BrowserRouter>

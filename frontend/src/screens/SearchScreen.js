@@ -464,7 +464,7 @@ export default function SearchScreen() {
                   </Col>
                 ))}
               </Row>
-              <div>
+              <div className="mb-3">
                 {[...Array(pages).keys()].map((x) => (
                   <LinkContainer
                     key={x + 1}

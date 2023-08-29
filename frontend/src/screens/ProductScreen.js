@@ -25,7 +25,6 @@ import Product from '../components/Product';
 import NewProductsCarousel from '../components/NewProductCarousel';
 import { FloatingLabel } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import USP from '../components/USP';
 
 const reducer = (state, action) => {
   switch (action.type) {
