@@ -211,7 +211,7 @@ function ProductScreen() {
           <Row className="my-3">
             <ListGroup.Item>{product.description}</ListGroup.Item>
           </Row>
-
+          <p className="strong">Features</p>
           <ListGroup.Item>
             <Row>
               <p>- {product.bullet1}</p>
@@ -237,6 +237,16 @@ function ProductScreen() {
               <p>- {product.bullet5}</p>
             </Row>
           </ListGroup.Item>
+          <p>
+            <span className="strong">Colour </span> {product.colour}
+          </p>
+          <p>
+            <span className="strong">Material </span> {product.material}
+          </p>
+          <p>
+            <span className="strong">Dimension </span> {product.length}cm x{' '}
+            {product.width}cm x {product.thickness}mm
+          </p>
         </Col>
       </Row>
 

@@ -67,6 +67,12 @@ export default function ProductEditScreen() {
   const [bullet3, setBullet3] = useState('');
   const [bullet4, setBullet4] = useState('');
   const [bullet5, setBullet5] = useState('');
+  const [colour, setColour] = useState('');
+  const [colourDescription, setColourDescription] = useState('');
+  const [material, setMaterial] = useState('');
+  const [length, setLength] = useState('');
+  const [width, setWidth] = useState('');
+  const [thickness, setThickness] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -89,6 +95,12 @@ export default function ProductEditScreen() {
         setBullet3(data.bullet3);
         setBullet4(data.bullet4);
         setBullet5(data.bullet5);
+        setColour(data.colour);
+        setColourDescription(data.colourDescription);
+        setMaterial(data.material);
+        setLength(data.length);
+        setWidth(data.width);
+        setThickness(data.thickness);
         dispatch({ type: 'FETCH_SUCCESS' });
       } catch (err) {
         dispatch({
@@ -121,6 +133,12 @@ export default function ProductEditScreen() {
           bullet3,
           bullet4,
           bullet5,
+          colour,
+          colourDescription,
+          material,
+          length,
+          width,
+          thickness,
         },
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -189,11 +207,20 @@ export default function ProductEditScreen() {
             />
             <small>{remainingCharacters} characters remaining</small>
           </Form.Group>
+
           <Form.Group className="mb-3" controlId="brand">
             <Form.Label>Brand</Form.Label>
             <Form.Control
               value={brand}
               onChange={(e) => setBrand(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="category">
+            <Form.Label>Category</Form.Label>
+            <Form.Control
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
               required
             />
           </Form.Group>
@@ -207,14 +234,7 @@ export default function ProductEditScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="category">
-            <Form.Label>Category</Form.Label>
-            <Form.Control
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              required
-            />
-          </Form.Group>
+
           <Form.Group className="mb-3" controlId="bullet1">
             <Form.Label>Bullet One</Form.Label>
             <Form.Control
@@ -255,6 +275,41 @@ export default function ProductEditScreen() {
               // required
             />
           </Form.Group>
+          <Form.Group className="mb-3" controlId="material">
+            <Form.Label>Material</Form.Label>
+            <Form.Control
+              value={material}
+              onChange={(e) => setMaterial(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="length">
+            <Form.Label>Length (cm)</Form.Label>
+            <Form.Control
+              value={length}
+              onChange={(e) => setLength(e.target.value)}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="width">
+            <Form.Label>Width (cm)</Form.Label>
+            <Form.Control
+              value={width}
+              onChange={(e) => setWidth(e.target.value)}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="thickness">
+            <Form.Label>Thickness (mm)</Form.Label>
+            <Form.Control
+              value={thickness}
+              onChange={(e) => setThickness(e.target.value)}
+              required
+            />
+          </Form.Group>
+
           {/* <Form.Group className="mb-3" controlId="slug">
             <Form.Label>Slug</Form.Label>
             <Form.Control
@@ -279,6 +334,7 @@ export default function ProductEditScreen() {
               required
             />
           </Form.Group>
+
           {/* <Form.Group className="mb-3" controlId="image">
             <Form.Label>Image File</Form.Label>
             <Form.Control

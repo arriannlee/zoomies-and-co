@@ -31,6 +31,12 @@ productRouter.post(
       bullet3: 'bullet 3',
       bullet4: 'bullet 4',
       bullet5: 'bullet 5',
+      colour: '',
+      colourDescription: '',
+      material: '',
+      length: 0,
+      width: 0,
+      thickness: 0,
     });
     const product = await newProduct.save();
     res.send({ message: 'Product Created', product });
@@ -57,6 +63,13 @@ productRouter.put(
       product.bullet3 = req.body.bullet3;
       product.bullet4 = req.body.bullet4;
       product.bullet5 = req.body.bullet5;
+      product.colour = req.body.colour;
+      product.colourDescription = req.body.colourDescription;
+      product.material = req.body.material;
+      product.length = req.body.length;
+      product.width = req.body.width;
+      product.thickness = req.body.thickness;
+
       await product.save();
       res.send({ message: 'Product Updated' });
     } else {
