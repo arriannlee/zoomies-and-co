@@ -45,6 +45,10 @@ function App() {
 
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
+  // const [brands, setBrands] = useState([]);
+  // const [colours, setColours] = useState([]);
+  // const [materials, setMaterials] = useState([]);
+  // const [thickness, setThicknesses] = useState([]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -57,6 +61,52 @@ function App() {
     };
     fetchCategories();
   }, []);
+  // useEffect(() => {
+  //   const fetchBrands = async () => {
+  //     try {
+  //       const { data } = await axios.get(`/api/products/brands`);
+  //       setBrands(data);
+  //     } catch (err) {
+  //       toast.error(getError(err));
+  //     }
+  //   };
+  //   fetchBrands();
+  // }, []);
+  // useEffect(() => {
+  //   const fetchColours = async () => {
+  //     try {
+  //       const { data } = await axios.get(`/api/products/colours`);
+  //       setColours(data);
+  //     } catch (err) {
+  //       toast.error(getError(err));
+  //     }
+  //   };
+  //   fetchColours();
+  // }, []);
+
+  // useEffect(() => {
+  //   const fetchMaterials = async () => {
+  //     try {
+  //       const { data } = await axios.get(`/api/products/materials`);
+  //       setMaterials(data);
+  //     } catch (err) {
+  //       toast.error(getError(err));
+  //     }
+  //   };
+  //   fetchMaterials();
+  // }, []);
+
+  // useEffect(() => {
+  //   const fetchThicknesses = async () => {
+  //     try {
+  //       const { data } = await axios.get(`/api/products/thicknesses`);
+  //       setColours(data);
+  //     } catch (err) {
+  //       toast.error(getError(err));
+  //     }
+  //   };
+  //   fetchThicknesses();
+  // }, []);
 
   return (
     <BrowserRouter>
