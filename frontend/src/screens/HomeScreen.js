@@ -56,11 +56,13 @@ function HomeScreen() {
       <Container className="carousel">
         <Carousel>
           <Carousel.Item>
+            {/* <a href="/search" onClick={() => navigate('/search')}> */}
             <Image
               className="d-block w-100"
               src="/images/designedwithlove.png"
               alt="First slide"
             />
+            {/* </a> */}
           </Carousel.Item>
           <Carousel.Item>
             <Image

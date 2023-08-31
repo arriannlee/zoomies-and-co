@@ -47,12 +47,15 @@ function App() {
 
   const currentYear = new Date().getFullYear();
 
+  const [refineByIsOpen, setRefineByIsOpen] = useState(false);
+
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
-  // const [brands, setBrands] = useState([]);
-  // const [colours, setColours] = useState([]);
-  // const [materials, setMaterials] = useState([]);
-  // const [thickness, setThicknesses] = useState([]);
+
+  const [brands, setBrands] = useState([]);
+  const [colours, setColours] = useState([]);
+  const [materials, setMaterials] = useState([]);
+  const [thickness, setThicknesses] = useState([]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -65,52 +68,54 @@ function App() {
     };
     fetchCategories();
   }, []);
-  // useEffect(() => {
-  //   const fetchBrands = async () => {
-  //     try {
-  //       const { data } = await axios.get(`/api/products/brands`);
-  //       setBrands(data);
-  //     } catch (err) {
-  //       toast.error(getError(err));
-  //     }
-  //   };
-  //   fetchBrands();
-  // }, []);
-  // useEffect(() => {
-  //   const fetchColours = async () => {
-  //     try {
-  //       const { data } = await axios.get(`/api/products/colours`);
-  //       setColours(data);
-  //     } catch (err) {
-  //       toast.error(getError(err));
-  //     }
-  //   };
-  //   fetchColours();
-  // }, []);
 
-  // useEffect(() => {
-  //   const fetchMaterials = async () => {
-  //     try {
-  //       const { data } = await axios.get(`/api/products/materials`);
-  //       setMaterials(data);
-  //     } catch (err) {
-  //       toast.error(getError(err));
-  //     }
-  //   };
-  //   fetchMaterials();
-  // }, []);
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        const { data } = await axios.get(`/api/products/brands`);
+        setBrands(data);
+      } catch (err) {
+        toast.error(getError(err));
+      }
+    };
+    fetchBrands();
+  }, []);
 
-  // useEffect(() => {
-  //   const fetchThicknesses = async () => {
-  //     try {
-  //       const { data } = await axios.get(`/api/products/thicknesses`);
-  //       setColours(data);
-  //     } catch (err) {
-  //       toast.error(getError(err));
-  //     }
-  //   };
-  //   fetchThicknesses();
-  // }, []);
+  useEffect(() => {
+    const fetchColours = async () => {
+      try {
+        const { data } = await axios.get(`/api/products/colours`);
+        setColours(data);
+      } catch (err) {
+        toast.error(getError(err));
+      }
+    };
+    fetchColours();
+  }, []);
+
+  useEffect(() => {
+    const fetchMaterials = async () => {
+      try {
+        const { data } = await axios.get(`/api/products/materials`);
+        setMaterials(data);
+      } catch (err) {
+        toast.error(getError(err));
+      }
+    };
+    fetchMaterials();
+  }, []);
+
+  useEffect(() => {
+    const fetchThicknesses = async () => {
+      try {
+        const { data } = await axios.get(`/api/products/thicknesses`);
+        setColours(data);
+      } catch (err) {
+        toast.error(getError(err));
+      }
+    };
+    fetchThicknesses();
+  }, []);
 
   return (
     <BrowserRouter>
@@ -140,7 +145,8 @@ function App() {
                 <SearchBox />
                 <Nav className="me-auto w-100 justify-content-end">
                   <Link to="/basket" className="nav-link">
-                    Basket
+                    <i className="fas fa-shopping-basket"></i>
+                    {/* Basket */}
                     {basket.basketItems.length > 0 && (
                       <Badge pill bg="danger">
                         {basket.basketItems.reduce((a, c) => a + c.quantity, 0)}
@@ -213,6 +219,31 @@ function App() {
             ))}
           </Nav>
         </div>
+
+        <div
+          className={
+            refineByIsOpen
+              ? 'active-nav side-navbar d-flex justify-content-between flex-wrap flex-column'
+              : 'side-navbar d-flex justify-content-between flex-wrap flex-column'
+          }
+        >
+          <Nav className="flex-column text-white w-100 p-2">
+            <Nav.Item>
+              <strong>Categories</strong>
+            </Nav.Item>
+            {categories.map((category) => (
+              <Nav.Item key={category}>
+                <LinkContainer
+                  to={{ pathname: '/search', search: `/category=${category}` }}
+                  onClick={() => setSidebarIsOpen(false)}
+                >
+                  <Nav.Link>{category}</Nav.Link>
+                </LinkContainer>
+              </Nav.Item>
+            ))}
+          </Nav>
+        </div>
+
         <main>
           <Container className="mt-3">
             <Routes>
@@ -280,16 +311,20 @@ function App() {
         </main>
         <footer className="bg-dark text-light" variant="dark" expand="lg">
           <Container className="socialIcons my-3">
-            <a href="https://www.facebook.com/" target="_blank">
+            <a
+              href="https://www.facebook.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
               <i className="fab fa-facebook"></i>
             </a>{' '}
-            <a href="https://www.twitter.com/" target="_blank">
+            <a href="https://www.twitter.com/" target="_blank" rel="noreferrer">
               <i className="fab fa-twitter"></i>
             </a>{' '}
-            <a href="https://www.youtube.com/" target="_blank">
+            <a href="https://www.youtube.com/" target="_blank" rel="noreferrer">
               <i className="fab fa-youtube"></i>
             </a>
-            <a href="https://www.tiktok.com/" target="_blank">
+            <a href="https://www.tiktok.com/" target="_blank" rel="noreferrer">
               <i className="fab fa-tiktok"></i>
             </a>
           </Container>
