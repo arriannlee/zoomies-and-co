@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet-async';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
 import Rating from '../components/Rating';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
@@ -131,6 +132,8 @@ export default function SearchScreen() {
     rating,
   ]);
 
+  const [refineByCollapsed, setRefineByCollapsed] = useState(true);
+
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     const fetchCategories = async () => {
@@ -217,8 +220,11 @@ export default function SearchScreen() {
         <title>Search Products</title>
       </Helmet>
       <Row>
-        <Col md={3} className="refineBy">
-          <div className="filter">
+        <Col
+          md={3}
+          className={`refineBy ${refineByCollapsed ? 'collapsed' : ''}`}
+        >
+          {/* <div className="filter">
             <h3>Category</h3>
             <ul>
               <li>
@@ -239,10 +245,10 @@ export default function SearchScreen() {
                   </Link>
                 </li>
               ))}
-            </ul>
-          </div>
-          <h3>Brand</h3>
-          <div>
+            </ul> */}
+          {/* </div> */}
+          <div className="filter">
+            <h3>Brand</h3>
             <ul>
               <li>
                 <Link
@@ -380,6 +386,7 @@ export default function SearchScreen() {
             </ul>
           </div>
         </Col>
+
         <Col md={9} className="sortBy">
           {loading ? (
             <LoadingBox></LoadingBox>
@@ -387,50 +394,107 @@ export default function SearchScreen() {
             <MessageBox variant="danger">{error}</MessageBox>
           ) : (
             <>
-              <Row className="justify-content-between mb-3">
+              <div>
+                <Row className="mb-3">
+                  {/* <h2>YOGA MATS</h2> */}
+                  <Card>
+                    <p>
+                      Designed with devotion and meticulously crafted for yogis
+                      at any stage, our mats are a harmonious blend of comfort
+                      and stability. Imagine them as the soft clouds of the
+                      fitness cosmos, supporting your joints as you delve into
+                      the depths of downward dogs and the spirit of warrior
+                      poses.
+                    </p>
+                    <p>
+                      Whether you're a seasoned yogi or a tentative explorer,
+                      our mats offer the foundation for your practice, both
+                      physically and metaphorically. These mats aren't mere
+                      floor coverings; they're a path to enlightenment for your
+                      body and soul.
+                    </p>
+                    <p>
+                      So, why wait? Immerse yourself in the world of OMMATOPIA,
+                      where every unrolling leads to a fresh experience of
+                      tranquility. Let's embark on this voyage together – unroll
+                      your zen NOW!
+                    </p>
+                  </Card>
+                </Row>
+              </div>
+              {/* <Row className="justify-content-between mb-3"> */}
+              <Row>
+                <div className="results my-3">
+                  {countProducts === 0 ? 'No' : countProducts} Results
+                  {query !== 'all' && ' : ' + query}
+                  {category !== 'all' && ' : ' + category}
+                  {brand !== 'all' && ' : ' + brand}
+                  {colour !== 'all' && ' : ' + colour}
+                  {material !== 'all' && ' : ' + material}
+                  {thickness !== 'all' && ' : ' + thickness}
+                  {price !== 'all' && ' : Price ' + price}
+                  {rating !== 'all' && ' : Rating ' + rating + ' & up'}
+                  {query !== 'all' ||
+                  category !== 'all' ||
+                  brand !== 'all' ||
+                  colour !== 'all' ||
+                  material !== 'all' ||
+                  thickness !== 'all' ||
+                  rating !== 'all' ||
+                  price !== 'all' ? (
+                    <Button variant="light" onClick={() => navigate('/search')}>
+                      <i className="fas fa-times-circle"></i>
+                    </Button>
+                  ) : null}
+                </div>
+              </Row>
+              <Row>
                 <Col md={6}>
-                  <div>
-                    {countProducts === 0 ? 'No' : countProducts} Results
-                    {query !== 'all' && ' : ' + query}
-                    {category !== 'all' && ' : ' + category}
-                    {brand !== 'all' && ' : ' + brand}
-                    {colour !== 'all' && ' : ' + colour}
-                    {material !== 'all' && ' : ' + material}
-                    {thickness !== 'all' && ' : ' + thickness}
-                    {price !== 'all' && ' : Price ' + price}
-                    {rating !== 'all' && ' : Rating ' + rating + ' & up'}
-                    {query !== 'all' ||
-                    category !== 'all' ||
-                    brand !== 'all' ||
-                    colour !== 'all' ||
-                    material !== 'all' ||
-                    thickness !== 'all' ||
-                    rating !== 'all' ||
-                    price !== 'all' ? (
-                      <Button
-                        variant="light"
-                        onClick={() => navigate('/search')}
+                  <div className="refineSortContainer">
+                    <div
+                      className="refine refineBy-toggle-button pointer"
+                      onClick={() => setRefineByCollapsed(!refineByCollapsed)}
+                    >
+                      <i className="fas fa-filter"> </i>
+                      FILTER BY
+                    </div>
+                    <div className="sortBy">
+                      Sort by{' '}
+                      <select
+                        value={order}
+                        onChange={(e) => {
+                          navigate(getFilterUrl({ order: e.target.value }));
+                        }}
                       >
-                        <i className="fas fa-times-circle"></i>
-                      </Button>
-                    ) : null}
+                        <option value="newest">Newest First</option>
+                        <option value="lowest">Price: Low to High</option>
+                        <option value="highest">Price: High to Low</option>
+                        <option value="topRated">
+                          Average Customer Rating
+                        </option>
+                      </select>
+                    </div>
                   </div>
                 </Col>
-                <Col className="text-end">
-                  Sort by{' '}
-                  <select
-                    value={order}
-                    onChange={(e) => {
-                      navigate(getFilterUrl({ order: e.target.value }));
-                    }}
-                  >
-                    <option value="newest">Newest First</option>
-                    <option value="lowest">Price: Low to High</option>
-                    <option value="highest">Price: High to Low</option>
-                    <option value="topRated">Average Customer Rating</option>
-                  </select>
+                <Col>
+                  {/* <div className="sortBy text-end"> */}
+                  <div className="sortBy">
+                    Sort by{' '}
+                    <select
+                      value={order}
+                      onChange={(e) => {
+                        navigate(getFilterUrl({ order: e.target.value }));
+                      }}
+                    >
+                      <option value="newest">Newest First</option>
+                      <option value="lowest">Price: Low to High</option>
+                      <option value="highest">Price: High to Low</option>
+                      <option value="topRated">Average Customer Rating</option>
+                    </select>
+                  </div>
                 </Col>
               </Row>
+
               {products.length === 0 && (
                 <MessageBox>No Product Found</MessageBox>
               )}

@@ -49,7 +49,7 @@ function HomeScreen() {
   return (
     <div>
       <Helmet>
-        <title>Zoomies & Co</title>
+        <title>OMMATOPIA</title>
       </Helmet>
 
       {/* Carousel */}
@@ -73,6 +73,7 @@ function HomeScreen() {
           </Carousel.Item>
         </Carousel>
       </Container>
+
       <h1 className="my-3">What's New...</h1>
       <div className="products">
         {loading ? (

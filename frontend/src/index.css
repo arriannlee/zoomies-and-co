@@ -1,3 +1,146 @@
+/* html,
+body,
+div,
+span,
+applet,
+object,
+iframe, */
+/* h1,
+h2,
+h3,
+h4,
+h5,
+h6, */
+/* p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+body {
+  -webkit-text-size-adjust: none;
+}
+mark {
+  background-color: transparent;
+  color: inherit;
+}
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+input,
+select,
+textarea {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+} */
+
 :root {
   --primary: #d81e5b;
   --secondary: #ba4efc;
@@ -19,6 +162,16 @@ a:link {
   text-decoration: none;
 }
 
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.strong {
+  font-weight: bold;
+}
 /* header {
   background-color: var(--dark-alt);
   padding: 1rem;
@@ -47,8 +200,8 @@ main {
 
 .btn-primary,
 .btn-outline-primary {
-  background-color: #f0c040;
-  color: black;
+  background-color: #212529;
+  color: white;
 }
 
 /* .products {
@@ -58,7 +211,7 @@ main {
 } */
 
 .rating span {
-  color: #ffc000;
+  color: #212529;
 }
 
 .rating p {
@@ -86,6 +239,12 @@ main {
 .img-med {
   max-width: 100%;
   height: 500px;
+  padding: 10px;
+}
+
+.img-sm {
+  max-width: 100%;
+  height: 300px;
   padding: 10px;
 }
 
@@ -142,6 +301,8 @@ main {
 
 li {
   list-style: none;
+  padding: 0; /* Add this line to remove padding */
+  margin: 0.75rem 0 0.75rem 0.5rem; /* Add this line to remove margin as well */
 }
 
 .product-bullet {
@@ -246,3 +407,78 @@ li {
 .white {
   color: white;
 }
+
+/* Refine By */
+
+.refineBy {
+  display: block;
+}
+/* Add CSS rules for your collapsed refineBy */
+/* .refineBy.collapsed {
+  display: none; /* Hide the refineBy when collapsed */
+
+.refineBy .refineSortContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.refineBy-toggle-button {
+  display: none; /* Hide the toggle button on larger screens */
+}
+
+@media (max-width: 750px) {
+  .refineBy {
+    display: none; /* Add styles for the expanded refineBy on smaller screens */
+  }
+
+  .refineBy.collapsed {
+    /* Add styles for the collapsed refineBy on smaller screens */
+  }
+
+  .refineBy-toggle-button {
+    display: block; /* Show the toggle button on smaller screens */
+    /* Add styling for the toggle button */
+  }
+}
+
+.refineBy-toggle-button {
+  /* Add styling for the button */
+  /* background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin: 0;
+  padding: 0; */
+}
+
+@media (max-width: 768px) {
+  .refineBy-toggle-button {
+    /* Update styles for the icon and button on smaller screens */
+  }
+}
+
+/* Search Screen */
+.filter ul {
+  margin-bottom: 1.5rem;
+}
+.filter h3 {
+  text-transform: uppercase;
+}
+
+a:link {
+  color: #232323; /* Change the color to your desired color */
+  text-decoration: none;
+  /* Remove underline */
+}
+.filter a:visited {
+  color: #232323;
+}
+.filter a:hover {
+  font-weight: bold;
+}
+
+/* .searchBar ul {
+  padding: 0;
+  margin: 0;
+} */
