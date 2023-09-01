@@ -252,7 +252,7 @@ export default function SearchScreen() {
             <ul>
               <li>
                 <Link
-                  className={'all' === brand ? 'text-bold' : ''}
+                  className={'all' === brand ? 'text-bold selected' : ''}
                   to={getFilterUrl({ brand: 'all' })}
                 >
                   Any
@@ -261,7 +261,7 @@ export default function SearchScreen() {
               {brands.map((b) => (
                 <li key={b}>
                   <Link
-                    className={b === brand ? 'text-bold' : ''}
+                    className={b === brand ? 'text-bold selected' : ''}
                     to={getFilterUrl({ brand: b })}
                   >
                     {b}
@@ -275,7 +275,7 @@ export default function SearchScreen() {
             <ul>
               <li>
                 <Link
-                  className={'all' === colour ? 'text-bold' : ''}
+                  className={'all' === colour ? 'text-bold selected' : ''}
                   to={getFilterUrl({ colour: 'all' })}
                 >
                   Any
@@ -284,7 +284,7 @@ export default function SearchScreen() {
               {colours.map((c) => (
                 <li key={c}>
                   <Link
-                    className={c === colour ? 'text-bold' : ''}
+                    className={c === colour ? 'text-bold selected' : ''}
                     to={getFilterUrl({ colour: c })}
                   >
                     {c}
@@ -298,7 +298,7 @@ export default function SearchScreen() {
             <ul>
               <li>
                 <Link
-                  className={'all' === material ? 'text-bold' : ''}
+                  className={'all' === material ? 'text-bold selected' : ''}
                   to={getFilterUrl({ material: 'all' })}
                 >
                   Any
@@ -307,7 +307,7 @@ export default function SearchScreen() {
               {materials.map((m) => (
                 <li key={m}>
                   <Link
-                    className={m === material ? 'text-bold' : ''}
+                    className={m === material ? 'text-bold selected' : ''}
                     to={getFilterUrl({ material: m })}
                   >
                     {m}
@@ -321,7 +321,7 @@ export default function SearchScreen() {
             <ul>
               <li>
                 <Link
-                  className={'all' === thickness ? 'text-bold' : ''}
+                  className={'all' === thickness ? 'text-bold selected' : ''}
                   to={getFilterUrl({ thickness: 'all' })}
                 >
                   Any
@@ -330,7 +330,7 @@ export default function SearchScreen() {
               {thicknesses.map((t) => (
                 <li key={t}>
                   <Link
-                    className={t === thickness ? 'text-bold' : ''}
+                    className={t === thickness ? 'text-bold selected' : ''}
                     to={getFilterUrl({ thickness: t })}
                   >
                     {t}mm
@@ -344,7 +344,7 @@ export default function SearchScreen() {
             <ul>
               <li>
                 <Link
-                  className={'all' === price ? 'text-bold' : ''}
+                  className={'all' === price ? 'text-bold selected' : ''}
                   to={getFilterUrl({ price: 'all' })}
                 >
                   Any
@@ -354,7 +354,7 @@ export default function SearchScreen() {
                 <li key={p.value}>
                   <Link
                     to={getFilterUrl({ price: p.value })}
-                    className={p.value === price ? 'text-bold' : ''}
+                    className={p.value === price ? 'text-bold selected' : ''}
                   >
                     {p.name}
                   </Link>
@@ -371,7 +371,7 @@ export default function SearchScreen() {
                     to={getFilterUrl({ rating: r.rating })}
                     className={`${r.rating}` === `${rating}` ? 'text-bold' : ''}
                   >
-                    <Rating caption={' & up'} rating={r.rating}></Rating>
+                    <Rating caption={' '} rating={r.rating}></Rating>
                   </Link>
                 </li>
               ))}
@@ -380,7 +380,7 @@ export default function SearchScreen() {
                   to={getFilterUrl({ rating: 'all' })}
                   className={rating === 'all' ? 'text-bold' : ''}
                 >
-                  <Rating caption={' & up'} rating={0}></Rating>
+                  <Rating caption={' '} rating={0}></Rating>
                 </Link>
               </li>
             </ul>

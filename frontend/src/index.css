@@ -141,6 +141,10 @@ textarea {
   appearance: none;
 } */
 
+main {
+  margin-bottom: 60px; /* Adjust the value to match the height of your footer */
+}
+
 :root {
   --primary: #d81e5b;
   --secondary: #ba4efc;
@@ -210,8 +214,8 @@ main {
   justify-content: center;
 } */
 
-.rating span {
-  color: #212529;
+.rating .fas {
+  color: #007bff;
 }
 
 .rating p {
@@ -269,8 +273,8 @@ main {
 }
 
 .checkout-steps > div.active {
-  border-bottom: 0.2rem solid #f08000;
-  color: #f08000;
+  border-bottom: 0.2rem solid #007bff;
+  color: #007bff;
 }
 
 /* sidebar */
@@ -335,25 +339,39 @@ li {
 
 /* Homescreen */
 
-.overviewName,
+/* .overviewName,
 .overviewPrice {
   text-align: center;
-  /* padding: 0.75rem; */
+} */
+
+.overviewName {
+  text-align: center;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #131a26;
 }
 
 .overviewPrice {
-  padding: 0rem;
-}
-
-.overviewRating {
+  text-align: center;
+  height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.nameRating {
-  height: 100px;
+.overviewRating {
+  height: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+/* .nameRating {
+  height: 100px;
+} */
 /* Product Screen */
 
 .productMainImg {
@@ -381,10 +399,6 @@ li {
   transition: all 0.3s ease; /* Add transition for smooth effect */
 }
 
-.usp-item:hover {
-  transform: scale(1.05); /* Add scaling effect on hover */
-}
-
 /* .fixed-overview {
   height: 650px;
 } */
@@ -399,14 +413,26 @@ li {
 .socialIcons .fab {
   color: white;
   text-decoration: none;
-  font-size: 2.5rem;
+  font-size: 2rem;
   /* padding: 0.5rem; */
-  margin: 0 0.5rem;
+  margin: 0.75rem 0.75rem 0 0;
   display: flex;
 }
+
+.fab:hover {
+  color: #007bff;
+}
+
 .white {
   color: white;
 }
+
+/* .fixed-footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+} */
 
 /* Refine By */
 
@@ -466,7 +492,7 @@ li {
   text-transform: uppercase;
 }
 
-a:link {
+.filter a:link {
   color: #232323; /* Change the color to your desired color */
   text-decoration: none;
   /* Remove underline */
@@ -475,10 +501,31 @@ a:link {
   color: #232323;
 }
 .filter a:hover {
-  font-weight: bold;
+  color: #007bff;
 }
 
+.filter li a.selected {
+  color: #007bff;
+}
+
+.logo {
+  color: #007bff;
+  font-size: 2rem;
+}
 /* .searchBar ul {
   padding: 0;
   margin: 0;
 } */
+
+/* Logo/Brand Name */
+
+.brandName:hover {
+  color: #007bff;
+}
+
+/* Homescreen */
+
+.products h2 {
+  text-align: center;
+  text-transform: uppercase;
+}
