@@ -47,75 +47,75 @@ function App() {
 
   const currentYear = new Date().getFullYear();
 
-  const [refineByIsOpen, setRefineByIsOpen] = useState(false);
+  // const [refineByIsOpen, setRefineByIsOpen] = useState(false);
 
-  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
-  const [categories, setCategories] = useState([]);
+  // const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
+  // const [categories, setCategories] = useState([]);
 
-  const [brands, setBrands] = useState([]);
-  const [colours, setColours] = useState([]);
-  const [materials, setMaterials] = useState([]);
-  const [thickness, setThicknesses] = useState([]);
+  // const [brands, setBrands] = useState([]);
+  // const [colours, setColours] = useState([]);
+  // const [materials, setMaterials] = useState([]);
+  // const [thickness, setThicknesses] = useState([]);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const { data } = await axios.get(`/api/products/categories`);
-        setCategories(data);
-      } catch (err) {
-        toast.error(getError(err));
-      }
-    };
-    fetchCategories();
-  }, []);
+  // useEffect(() => {
+  //   const fetchCategories = async () => {
+  //     try {
+  //       const { data } = await axios.get(`/api/products/categories`);
+  //       setCategories(data);
+  //     } catch (err) {
+  //       toast.error(getError(err));
+  //     }
+  //   };
+  //   fetchCategories();
+  // }, []);
 
-  useEffect(() => {
-    const fetchBrands = async () => {
-      try {
-        const { data } = await axios.get(`/api/products/brands`);
-        setBrands(data);
-      } catch (err) {
-        toast.error(getError(err));
-      }
-    };
-    fetchBrands();
-  }, []);
+  // useEffect(() => {
+  //   const fetchBrands = async () => {
+  //     try {
+  //       const { data } = await axios.get(`/api/products/brands`);
+  //       setBrands(data);
+  //     } catch (err) {
+  //       toast.error(getError(err));
+  //     }
+  //   };
+  //   fetchBrands();
+  // }, []);
 
-  useEffect(() => {
-    const fetchColours = async () => {
-      try {
-        const { data } = await axios.get(`/api/products/colours`);
-        setColours(data);
-      } catch (err) {
-        toast.error(getError(err));
-      }
-    };
-    fetchColours();
-  }, []);
+  // useEffect(() => {
+  //   const fetchColours = async () => {
+  //     try {
+  //       const { data } = await axios.get(`/api/products/colours`);
+  //       setColours(data);
+  //     } catch (err) {
+  //       toast.error(getError(err));
+  //     }
+  //   };
+  //   fetchColours();
+  // }, []);
 
-  useEffect(() => {
-    const fetchMaterials = async () => {
-      try {
-        const { data } = await axios.get(`/api/products/materials`);
-        setMaterials(data);
-      } catch (err) {
-        toast.error(getError(err));
-      }
-    };
-    fetchMaterials();
-  }, []);
+  // useEffect(() => {
+  //   const fetchMaterials = async () => {
+  //     try {
+  //       const { data } = await axios.get(`/api/products/materials`);
+  //       setMaterials(data);
+  //     } catch (err) {
+  //       toast.error(getError(err));
+  //     }
+  //   };
+  //   fetchMaterials();
+  // }, []);
 
-  useEffect(() => {
-    const fetchThicknesses = async () => {
-      try {
-        const { data } = await axios.get(`/api/products/thicknesses`);
-        setColours(data);
-      } catch (err) {
-        toast.error(getError(err));
-      }
-    };
-    fetchThicknesses();
-  }, []);
+  // useEffect(() => {
+  //   const fetchThicknesses = async () => {
+  //     try {
+  //       const { data } = await axios.get(`/api/products/thicknesses`);
+  //       setColours(data);
+  //     } catch (err) {
+  //       toast.error(getError(err));
+  //     }
+  //   };
+  //   fetchThicknesses();
+  // }, []);
 
   return (
     <BrowserRouter>
@@ -128,6 +128,13 @@ function App() {
       > */}
       <ToastContainer position="bottom-center" limit={1} />
       <header>
+        <Navbar bg="primary" variant="light" expand="lg" className="ctaBar">
+          <Link className="nav-link" to="/search">
+            <i className="fas fa-truck"> </i>
+            <span className="strong"> Free Delivery</span> on all orders over
+            £30{' '}
+          </Link>
+        </Navbar>
         {/* <Navbar bg="dark" variant="dark" expand="lg"> */}
         {/* <Container className="headerSocialIcons my-3">
             <a
@@ -165,10 +172,11 @@ function App() {
             </Button> */}
 
             <LinkContainer to="/">
-              <Navbar.Brand className="brandName">OMMATOPIA</Navbar.Brand>
+              <Navbar.Brand>OMMATOPIA</Navbar.Brand>
             </LinkContainer>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
+              {/* <SearchBox /> */}
               <Nav className="me-auto w-100 justify-content-end">
                 <Link to="/basket" className="nav-link">
                   <i className="fas fa-shopping-basket"></i>
@@ -338,12 +346,15 @@ function App() {
           </Routes>
         </Container>
       </main>
-      <footer
-        className="bg-dark text-light fixed-footer"
-        variant="dark"
-        expand="lg"
-      >
+      <footer className="bg-dark text-light" variant="dark" expand="lg">
+        <Container className="newsletter"></Container>
         <Container className="socialIcons my-3">
+          <a href="tel:+44800123456">
+            <i className="fas fa-phone"></i>
+          </a>
+          <a href="mailto:hello@ommatopia.com?subject=Website%20Enquiry">
+            <i className="far fa-envelope"></i>
+          </a>
           <a href="https://www.facebook.com/" target="_blank" rel="noreferrer">
             <i className="fab fa-facebook"></i>
           </a>{' '}

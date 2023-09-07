@@ -10,7 +10,7 @@ import Product from '../components/Product';
 import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import { Card, Container, Image } from 'react-bootstrap';
+import { Container, Image } from 'react-bootstrap';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -73,27 +73,7 @@ function HomeScreen() {
           </Carousel.Item>
         </Carousel>
       </Container>
-      <Container className="my-4">
-        {/* <h2>YOGA MATS</h2> */}
-        <p>
-          Designed with devotion and meticulously crafted for yogis at any
-          stage, our mats are a harmonious blend of comfort and stability.
-          Imagine them as the soft clouds of the fitness cosmos, supporting your
-          joints as you delve into the depths of downward dogs and the spirit of
-          warrior poses.
-        </p>
-        <p>
-          Whether you're a seasoned yogi or a tentative explorer, our mats offer
-          the foundation for your practice, both physically and metaphorically.
-          These mats aren't mere floor coverings; they're a path to
-          enlightenment for your body and soul.
-        </p>
-        <p>
-          So, why wait? Immerse yourself in the world of OMMATOPIA, where every
-          unrolling leads to a fresh experience of tranquility. Let's embark on
-          this voyage together – unroll your zen NOW!
-        </p>
-      </Container>
+
       <div className="products">
         <h2 className="my-3">Shop OMMATOPIA bestsellers!</h2>
 
@@ -114,6 +94,39 @@ function HomeScreen() {
         )}
         {/* <h2 onClick={() => navigate('/search')}>More...</h2> */}
       </div>
+
+      <Row>
+        <Col md={4}>
+          <Image
+            className="d-block w-100 mx-auto"
+            src="/images/dwl.png"
+            alt="Designed With Love"
+          />
+        </Col>
+
+        <Col md={8} className="mx-auto">
+          <Container className="justify-content-end dwlDescription">
+            <p>
+              Designed with devotion and meticulously crafted for yogis at any
+              stage, our mats are a harmonious blend of comfort and stability.
+              Imagine them as the soft clouds of the fitness cosmos, supporting
+              your joints as you delve into the depths of downward dogs and the
+              spirit of warrior poses.
+            </p>
+            <p>
+              Whether you're a seasoned yogi or a tentative explorer, our mats
+              offer the foundation for your practice, both physically and
+              metaphorically. These mats aren't mere floor coverings; they're a
+              path to enlightenment for your body and soul.
+            </p>
+            <p>
+              So, why wait? Immerse yourself in the world of OMMATOPIA, where
+              every unrolling leads to a fresh experience of tranquility. Let's
+              embark on this voyage together – unroll your zen NOW!
+            </p>
+          </Container>
+        </Col>
+      </Row>
     </div>
   );
 }
