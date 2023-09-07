@@ -40,11 +40,13 @@ function Product(props) {
       <Card.Body>
         <div className="nameRating">
           <Link to={`/product/${product.slug}`}>
-            <Card.Title className="overviewName">{product.name}</Card.Title>
+            <Card.Title className="overviewName">
+              {product.type} {product.colourDescription} {product.category}
+            </Card.Title>
           </Link>
-          <div className="overviewRating mb-3">
+          {/* <div className="overviewRating mb-3">
             <Rating rating={product.rating} numReviews={product.numReviews} />
-          </div>
+          </div> */}
         </div>
 
         <Row>

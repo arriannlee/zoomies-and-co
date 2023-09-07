@@ -60,7 +60,7 @@ export default function ProductEditScreen() {
   const [image, setImage] = useState('');
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState('');
-  const [brand, setBrand] = useState('');
+  const [type, setType] = useState('');
   const [description, setDescription] = useState('');
   const [bullet1, setBullet1] = useState('');
   const [bullet2, setBullet2] = useState('');
@@ -88,7 +88,7 @@ export default function ProductEditScreen() {
         setImage(data.image);
         setCategory(data.category);
         setCountInStock(data.countInStock);
-        setBrand(data.brand);
+        setType(data.type);
         setDescription(data.description);
         setBullet1(data.bullet1);
         setBullet2(data.bullet2);
@@ -125,7 +125,7 @@ export default function ProductEditScreen() {
           price,
           image,
           category,
-          brand,
+          type,
           countInStock,
           description,
           bullet1,
@@ -208,11 +208,27 @@ export default function ProductEditScreen() {
             <small>{remainingCharacters} characters remaining</small>
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="brand">
-            <Form.Label>Brand</Form.Label>
+          <Form.Group className="mb-3" controlId="type">
+            <Form.Label>Type</Form.Label>
             <Form.Control
-              value={brand}
-              onChange={(e) => setBrand(e.target.value)}
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="colour">
+            <Form.Label>Colour</Form.Label>
+            <Form.Control
+              value={colour}
+              onChange={(e) => setColour(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="colourDescription">
+            <Form.Label>Colour Description</Form.Label>
+            <Form.Control
+              value={colourDescription}
+              onChange={(e) => setColourDescription(e.target.value)}
               required
             />
           </Form.Group>

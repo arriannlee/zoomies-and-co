@@ -156,8 +156,11 @@ function ProductScreen() {
           <Row className="my-3">
             <Col md={7}>
               <ListGroup.Item>
-                <h1>{product.name}</h1>
-                <h3>Brand: {product.brand}</h3>
+                <h1>
+                  {product.colourDescription} {product.thickness}mm{' '}
+                  {product.category}
+                </h1>
+                <h3>Ommatopia {product.type}</h3>
                 <div className="my-2 pointer" onClick={scrollToReviews}>
                   <Rating
                     rating={product.rating}

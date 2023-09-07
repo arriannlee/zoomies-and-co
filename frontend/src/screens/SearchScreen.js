@@ -85,7 +85,7 @@ export default function SearchScreen() {
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
   const category = sp.get('category') || 'all';
-  const brand = sp.get('brand') || 'all';
+  const type = sp.get('type') || 'all';
   const colour = sp.get('colour') || 'all';
   const material = sp.get('material') || 'all';
   const thickness = sp.get('thickness') || 'all';
@@ -105,7 +105,7 @@ export default function SearchScreen() {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `/api/products/search?page=${page}&query=${query}&category=${category}&brand=${brand}&colour=${colour}&material=${material}&thickness=${thickness}&price=${price}&rating=${rating}&order=${order}`
+          `/api/products/search?page=${page}&query=${query}&category=${category}&type=${type}&colour=${colour}&material=${material}&thickness=${thickness}&price=${price}&rating=${rating}&order=${order}`
         );
         console.log('API Response:', data);
 
@@ -120,7 +120,7 @@ export default function SearchScreen() {
     fetchData();
   }, [
     category,
-    brand,
+    type,
     colour,
     material,
     thickness,
@@ -147,17 +147,17 @@ export default function SearchScreen() {
     fetchCategories();
   }, [dispatch]);
 
-  const [brands, setBrands] = useState([]);
+  const [types, setTypes] = useState([]);
   useEffect(() => {
-    const fetchBrands = async () => {
+    const fetchTypes = async () => {
       try {
-        const { data } = await axios.get('/api/products/brands');
-        setBrands(data);
+        const { data } = await axios.get('/api/products/types');
+        setTypes(data);
       } catch (err) {
         toast.error(getError(err));
       }
     };
-    fetchBrands();
+    fetchTypes();
   }, [dispatch]);
 
   const [colours, setColours] = useState([]);
@@ -202,7 +202,7 @@ export default function SearchScreen() {
   const getFilterUrl = (filter, skipPathname) => {
     const filterPage = filter.page || page;
     const filterCategory = filter.category || category;
-    const filterBrand = filter.brand || brand;
+    const filterType = filter.type || type;
     const filterColour = filter.colour || colour;
     const filterMaterial = filter.material || material;
     const filterThickness = filter.thickness || thickness;
@@ -212,7 +212,7 @@ export default function SearchScreen() {
     const sortOrder = filter.order || order;
     return `${
       skipPathname ? '' : '/search?'
-    }&category=${filterCategory}&brand=${filterBrand}&colour=${filterColour}&material=${filterMaterial}&thickness=${filterThickness}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
+    }&category=${filterCategory}&type=${filterType}&colour=${filterColour}&material=${filterMaterial}&thickness=${filterThickness}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
   };
   return (
     <div>
@@ -248,21 +248,21 @@ export default function SearchScreen() {
             </ul> */}
           {/* </div> */}
           <div className="filter">
-            <h3>Brand</h3>
+            <h3>Type</h3>
             <ul>
               <li>
                 <Link
-                  className={'all' === brand ? 'text-bold selected' : ''}
-                  to={getFilterUrl({ brand: 'all' })}
+                  className={'all' === type ? 'text-bold selected' : ''}
+                  to={getFilterUrl({ type: 'all' })}
                 >
                   Any
                 </Link>
               </li>
-              {brands.map((b) => (
+              {types.map((b) => (
                 <li key={b}>
                   <Link
-                    className={b === brand ? 'text-bold selected' : ''}
-                    to={getFilterUrl({ brand: b })}
+                    className={b === type ? 'text-bold selected' : ''}
+                    to={getFilterUrl({ type: b })}
                   >
                     {b}
                   </Link>
@@ -394,41 +394,13 @@ export default function SearchScreen() {
             <MessageBox variant="danger">{error}</MessageBox>
           ) : (
             <>
-              <div>
-                <Row className="mb-3">
-                  {/* <h2>YOGA MATS</h2> */}
-                  <Card>
-                    <p>
-                      Designed with devotion and meticulously crafted for yogis
-                      at any stage, our mats are a harmonious blend of comfort
-                      and stability. Imagine them as the soft clouds of the
-                      fitness cosmos, supporting your joints as you delve into
-                      the depths of downward dogs and the spirit of warrior
-                      poses.
-                    </p>
-                    <p>
-                      Whether you're a seasoned yogi or a tentative explorer,
-                      our mats offer the foundation for your practice, both
-                      physically and metaphorically. These mats aren't mere
-                      floor coverings; they're a path to enlightenment for your
-                      body and soul.
-                    </p>
-                    <p>
-                      So, why wait? Immerse yourself in the world of OMMATOPIA,
-                      where every unrolling leads to a fresh experience of
-                      tranquility. Let's embark on this voyage together – unroll
-                      your zen NOW!
-                    </p>
-                  </Card>
-                </Row>
-              </div>
               {/* <Row className="justify-content-between mb-3"> */}
               <Row>
                 <div className="results my-3">
                   {countProducts === 0 ? 'No' : countProducts} Results
                   {query !== 'all' && ' : ' + query}
                   {category !== 'all' && ' : ' + category}
-                  {brand !== 'all' && ' : ' + brand}
+                  {type !== 'all' && ' : ' + type}
                   {colour !== 'all' && ' : ' + colour}
                   {material !== 'all' && ' : ' + material}
                   {thickness !== 'all' && ' : ' + thickness}
@@ -436,7 +408,7 @@ export default function SearchScreen() {
                   {rating !== 'all' && ' : Rating ' + rating + ' & up'}
                   {query !== 'all' ||
                   category !== 'all' ||
-                  brand !== 'all' ||
+                  type !== 'all' ||
                   colour !== 'all' ||
                   material !== 'all' ||
                   thickness !== 'all' ||

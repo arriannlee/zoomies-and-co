@@ -299,7 +299,7 @@ productRouter.post(
       image: '../image.jpg',
       price: 0,
       category: 'sample category',
-      brand: 'sample brand',
+      type: 'sample type',
       countInStock: 0,
       rating: 0,
       numReviews: 0,
@@ -333,7 +333,7 @@ productRouter.put(
       product.price = req.body.price;
       product.image = req.body.image;
       product.category = req.body.category;
-      product.brand = req.body.brand;
+      product.type = req.body.type;
       product.countInStock = req.body.countInStock;
       product.description = req.body.description;
       product.bullet1 = req.body.bullet1;
@@ -437,7 +437,7 @@ productRouter.get(
     const pageSize = query.pageSize || PAGE_SIZE;
     const page = query.page || 1;
     const category = query.category || '';
-    const brand = query.brand || '';
+    const type = query.type || '';
     const price = query.price || '';
     const colour = query.colour || '';
     const material = query.material || '';
@@ -458,7 +458,7 @@ productRouter.get(
 
     const categoryFilter = category && category !== 'all' ? { category } : {};
 
-    const brandFilter = brand && brand !== 'all' ? { brand } : {};
+    const typeFilter = type && type !== 'all' ? { type } : {};
 
     const colourFilter = colour && colour !== 'all' ? { colour } : {};
 
@@ -502,7 +502,7 @@ productRouter.get(
     const products = await Product.find({
       ...queryFilter,
       ...categoryFilter,
-      ...brandFilter,
+      ...typeFilter,
       ...colourFilter,
       ...materialFilter,
       ...thicknessFilter,
@@ -516,7 +516,7 @@ productRouter.get(
     const countProducts = await Product.countDocuments({
       ...queryFilter,
       ...categoryFilter,
-      ...brandFilter,
+      ...typeFilter,
       ...colourFilter,
       ...materialFilter,
       ...thicknessFilter,
@@ -542,10 +542,10 @@ productRouter.get(
 );
 
 productRouter.get(
-  '/brands',
+  '/types',
   expressAsyncHandler(async (req, res) => {
-    const brands = await Product.find().distinct('brand');
-    res.send(brands);
+    const types = await Product.find().distinct('type');
+    res.send(types);
   })
 );
 

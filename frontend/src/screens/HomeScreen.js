@@ -5,6 +5,8 @@ import axios from 'axios';
 // import logger from 'use-reducer-logger';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+
 import Carousel from 'react-bootstrap/Carousel';
 import Product from '../components/Product';
 import { Helmet } from 'react-helmet-async';
@@ -59,17 +61,25 @@ function HomeScreen() {
             {/* <a href="/search" onClick={() => navigate('/search')}> */}
             <Image
               className="d-block w-100"
-              src="/images/designedwithlove.png"
+              src="/images/3.jpg"
               alt="First slide"
             />
+            <Carousel.Caption className="center-caption">
+              <h2>UNROLL FREE DELIVERY</h2>
+              <p>On all orders over £30!</p>
+            </Carousel.Caption>{' '}
             {/* </a> */}
           </Carousel.Item>
           <Carousel.Item>
             <Image
               className="d-block w-100"
-              src="/images/experiencefreedom.png"
+              src="/images/5.jpg"
               alt="First slide"
             />
+            <Carousel.Caption className="center-caption">
+              <h2>STUDIO & YOGA TEACHER DISCOUNT</h2>
+              <p>Save 10% on orders over £149.99</p>
+            </Carousel.Caption>{' '}
           </Carousel.Item>
         </Carousel>
       </Container>
@@ -106,23 +116,13 @@ function HomeScreen() {
 
         <Col md={8} className="mx-auto">
           <Container className="justify-content-end dwlDescription">
-            <p>
-              Designed with devotion and meticulously crafted for yogis at any
-              stage, our mats are a harmonious blend of comfort and stability.
-              Imagine them as the soft clouds of the fitness cosmos, supporting
-              your joints as you delve into the depths of downward dogs and the
-              spirit of warrior poses.
-            </p>
-            <p>
-              Whether you're a seasoned yogi or a tentative explorer, our mats
-              offer the foundation for your practice, both physically and
-              metaphorically. These mats aren't mere floor coverings; they're a
-              path to enlightenment for your body and soul.
-            </p>
-            <p>
-              So, why wait? Immerse yourself in the world of OMMATOPIA, where
-              every unrolling leads to a fresh experience of tranquility. Let's
-              embark on this voyage together – unroll your zen NOW!
+            <p className="brandColour">
+              Our mats are more than just accessories; they're an embodiment of
+              our commitment to your well-being and the environment. Explore our
+              collection to find the perfect mat that supports your practice
+              while adding a touch of elegance to your sacred space. Welcome to
+              Ommatopia, where love for yoga and thoughtful design unite to
+              inspire your journey towards inner harmony.
             </p>
           </Container>
         </Col>
