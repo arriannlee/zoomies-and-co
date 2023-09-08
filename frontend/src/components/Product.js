@@ -37,19 +37,21 @@ function Product(props) {
           alt={product.name}
         />
       </Link>
-      <Card.Body className="fixed-overview-body">
+      <Card.Body>
         <div className="nameRating">
           <Link to={`/product/${product.slug}`}>
-            <Card.Title className="overviewName">{product.name} </Card.Title>
+            <Card.Title className="overviewName">
+              {product.type} {product.colourDescription} {product.category}
+            </Card.Title>
           </Link>
-          <div className="overviewRating mb-3">
+          {/* <div className="overviewRating mb-3">
             <Rating rating={product.rating} numReviews={product.numReviews} />
-          </div>
+          </div> */}
         </div>
 
         <Row>
           <Card.Text className="overviewPrice">
-            <div>£{product.price}</div>
+            <h5>£{product.price}</h5>
           </Card.Text>
           {product.countInStock === 0 ? (
             <Button variant="light" disabled>
@@ -57,7 +59,7 @@ function Product(props) {
             </Button>
           ) : (
             <Button onClick={() => addToBasketHandler(product)}>
-              Add to Basket
+              Add to Basket{' '}
             </Button>
           )}
         </Row>

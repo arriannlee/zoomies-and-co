@@ -5,6 +5,8 @@ import axios from 'axios';
 // import logger from 'use-reducer-logger';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+
 import Carousel from 'react-bootstrap/Carousel';
 import Product from '../components/Product';
 import { Helmet } from 'react-helmet-async';
@@ -49,30 +51,44 @@ function HomeScreen() {
   return (
     <div>
       <Helmet>
-        <title>Zoomies & Co</title>
+        <title>OMMATOPIA</title>
       </Helmet>
 
       {/* Carousel */}
       <Container className="carousel">
         <Carousel>
           <Carousel.Item>
+            {/* <a href="/search" onClick={() => navigate('/search')}> */}
             <Image
               className="d-block w-100"
-              src="/images/designedwithlove.png"
+              src="/images/foralllevels.jpg"
               alt="First slide"
             />
+            <Carousel.Caption className="center-caption">
+              <h2>Crafted for yogis of all levels</h2>
+            </Carousel.Caption>{' '}
+            {/* </a> */}
           </Carousel.Item>
           <Carousel.Item>
             <Image
               className="d-block w-100"
-              src="/images/experiencefreedom.png"
+              src="/images/teacherdiscount.jpg"
               alt="First slide"
             />
+            <Carousel.Caption className="center-caption">
+              <h2>STUDIO & YOGA TEACHER DISCOUNT</h2>
+            </Carousel.Caption>{' '}
           </Carousel.Item>
         </Carousel>
       </Container>
-      <h1 className="my-3">What's New...</h1>
-      <div className="products">
+
+      <div className="mainContentSection">
+        <Container className="contentDescription">
+          <h2 className="my-3">Uniquely designed yoga mats</h2>
+          <p>
+            Our top selling yoga mats - for the yogi who wants to be different
+          </p>
+        </Container>
         {loading ? (
           <LoadingBox />
         ) : error ? (
@@ -88,7 +104,31 @@ function HomeScreen() {
             ))}
           </Row>
         )}
+        {/* <h2 onClick={() => navigate('/search')}>More...</h2> */}
       </div>
+
+      {/* <Row>
+        <Col md={4}>
+          <Image
+            className="d-block w-100 mx-auto"
+            src="/images/dwl.png"
+            alt="Designed With Love"
+          />
+        </Col>
+
+        <Col md={8} className="mx-auto">
+          <Container className="justify-content-end dwlDescription">
+            <p className="brandColour">
+              Our mats are more than just accessories; they're an embodiment of
+              our commitment to your well-being and the environment. Explore our
+              collection to find the perfect mat that supports your practice
+              while adding a touch of elegance to your sacred space. Welcome to
+              Ommatopia, where love for yoga and thoughtful design unite to
+              inspire your journey towards inner harmony.
+            </p>
+          </Container>
+        </Col>
+      </Row> */}
     </div>
   );
 }

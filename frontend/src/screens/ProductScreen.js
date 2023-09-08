@@ -155,10 +155,11 @@ function ProductScreen() {
           <Row className="my-3">
             <Col md={7}>
               <ListGroup.Item>
-                <h1>{product.name}</h1>
-
-                <h3>Brand: {product.brand}</h3>
-
+                <h1>
+                  {product.colourDescription} {product.thickness}mm{' '}
+                  {product.category}
+                </h1>
+                <h3>Ommatopia {product.type}</h3>
                 <div className="my-2 pointer" onClick={scrollToReviews}>
                   <Rating
                     rating={product.rating}
@@ -175,13 +176,6 @@ function ProductScreen() {
               <Card className="">
                 <Card.Body>
                   <ListGroup variant="flush">
-                    {/* <Row className="mb-3">
-                      <Col md={4}>Colour: </Col>
-                      <Col className="ar" md={8}>
-                        {product.colourDescription}
-                      </Col>
-                    </Row> */}
-
                     <Row className="mb-3">
                       <Col>Price: </Col>
                       <Col className="ar">£{product.price}</Col>
@@ -216,15 +210,10 @@ function ProductScreen() {
               </div> */}
             </Col>
           </Row>
-
-          <Row>
-            <p>
-              <ListGroup.Item>{product.description}</ListGroup.Item>
-            </p>
+          <Row className="my-3">
+            <ListGroup.Item>{product.description}</ListGroup.Item>
           </Row>
-
           <p className="strong">Features</p>
-
           <ListGroup.Item>
             <Row>
               <p>- {product.bullet1}</p>

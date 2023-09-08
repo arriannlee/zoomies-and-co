@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet-async';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
 import Rating from '../components/Rating';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
@@ -84,7 +85,7 @@ export default function SearchScreen() {
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
   const category = sp.get('category') || 'all';
-  const brand = sp.get('brand') || 'all';
+  const type = sp.get('type') || 'all';
   const colour = sp.get('colour') || 'all';
   const material = sp.get('material') || 'all';
   const thickness = sp.get('thickness') || 'all';
@@ -104,7 +105,7 @@ export default function SearchScreen() {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `/api/products/search?page=${page}&query=${query}&category=${category}&brand=${brand}&colour=${colour}&material=${material}&thickness=${thickness}&price=${price}&rating=${rating}&order=${order}`
+          `/api/products/search?page=${page}&query=${query}&category=${category}&type=${type}&colour=${colour}&material=${material}&thickness=${thickness}&price=${price}&rating=${rating}&order=${order}`
         );
         console.log('API Response:', data);
 
@@ -112,14 +113,14 @@ export default function SearchScreen() {
       } catch (err) {
         dispatch({
           type: 'FETCH_FAIL',
-          payload: getError(error),
+          payload: getError(err),
         });
       }
     };
     fetchData();
   }, [
     category,
-    brand,
+    type,
     colour,
     material,
     thickness,
@@ -130,6 +131,8 @@ export default function SearchScreen() {
     query,
     rating,
   ]);
+
+  const [refineByCollapsed, setRefineByCollapsed] = useState(true);
 
   const [categories, setCategories] = useState([]);
   useEffect(() => {
@@ -144,17 +147,17 @@ export default function SearchScreen() {
     fetchCategories();
   }, [dispatch]);
 
-  const [brands, setBrands] = useState([]);
+  const [types, setTypes] = useState([]);
   useEffect(() => {
-    const fetchBrands = async () => {
+    const fetchTypes = async () => {
       try {
-        const { data } = await axios.get('/api/products/brands');
-        setBrands(data);
+        const { data } = await axios.get('/api/products/types');
+        setTypes(data);
       } catch (err) {
         toast.error(getError(err));
       }
     };
-    fetchBrands();
+    fetchTypes();
   }, [dispatch]);
 
   const [colours, setColours] = useState([]);
@@ -199,7 +202,7 @@ export default function SearchScreen() {
   const getFilterUrl = (filter, skipPathname) => {
     const filterPage = filter.page || page;
     const filterCategory = filter.category || category;
-    const filterBrand = filter.brand || brand;
+    const filterType = filter.type || type;
     const filterColour = filter.colour || colour;
     const filterMaterial = filter.material || material;
     const filterThickness = filter.thickness || thickness;
@@ -209,22 +212,24 @@ export default function SearchScreen() {
     const sortOrder = filter.order || order;
     return `${
       skipPathname ? '' : '/search?'
-    }&category=${filterCategory}&brand=${filterBrand}&colour=${filterColour}&material=${filterMaterial}&thickness=${filterThickness}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
+    }&category=${filterCategory}&type=${filterType}&colour=${filterColour}&material=${filterMaterial}&thickness=${filterThickness}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
   };
   return (
     <div>
       <Helmet>
         <title>Search Products</title>
       </Helmet>
-
       <Row>
-        <Col md={3} className="searchBar">
-          <div className="mb-3">
-            <h3 className="text-bold">CATEGORY</h3>
+        <Col
+          md={3}
+          className={`refineBy ${refineByCollapsed ? 'collapsed' : ''}`}
+        >
+          {/* <div className="filter">
+            <h3>Category</h3>
             <ul>
               <li>
                 <Link
-                  className={'all' === category ? 'text-bold selected' : ''}
+                  className={'all' === category ? 'text-bold' : ''}
                   to={getFilterUrl({ category: 'all' })}
                 >
                   Any
@@ -233,31 +238,31 @@ export default function SearchScreen() {
               {categories.map((c) => (
                 <li key={c}>
                   <Link
-                    className={c === category ? 'text-bold selected' : ''}
+                    className={c === category ? 'text-bold' : ''}
                     to={getFilterUrl({ category: c })}
                   >
                     {c}
                   </Link>
                 </li>
               ))}
-            </ul>
-          </div>
-          <div classNAme="mb-3">
-            <h3 className="text-bold">BRAND</h3>
+            </ul> */}
+          {/* </div> */}
+          <div className="filter">
+            <h3>Type</h3>
             <ul>
               <li>
                 <Link
-                  className={'all' === brand ? 'text-bold selected' : ''}
-                  to={getFilterUrl({ brand: 'all' })}
+                  className={'all' === type ? 'text-bold selected' : ''}
+                  to={getFilterUrl({ type: 'all' })}
                 >
                   Any
                 </Link>
               </li>
-              {brands.map((b) => (
+              {types.map((b) => (
                 <li key={b}>
                   <Link
-                    className={b === brand ? 'text-bold selected' : ''}
-                    to={getFilterUrl({ brand: b })}
+                    className={b === type ? 'text-bold selected' : ''}
+                    to={getFilterUrl({ type: b })}
                   >
                     {b}
                   </Link>
@@ -265,12 +270,12 @@ export default function SearchScreen() {
               ))}
             </ul>
           </div>
-          <div classNAme="mb-3">
-            <h3 className="text-bold">COLOUR</h3>
+          <div className="filter">
+            <h3>Colour</h3>
             <ul>
               <li>
                 <Link
-                  className={'all' === colour ? 'text-bold selected ' : ''}
+                  className={'all' === colour ? 'text-bold selected' : ''}
                   to={getFilterUrl({ colour: 'all' })}
                 >
                   Any
@@ -288,8 +293,8 @@ export default function SearchScreen() {
               ))}
             </ul>
           </div>
-          <h3 className="text-bold">MATERIAL</h3>
-          <div>
+          <div className="filter">
+            <h3>Material</h3>
             <ul>
               <li>
                 <Link
@@ -311,8 +316,8 @@ export default function SearchScreen() {
               ))}
             </ul>
           </div>
-          <h3 className="text-bold">THICKNESS</h3>
-          <div>
+          <div className="filter">
+            <h3>Thickness</h3>
             <ul>
               <li>
                 <Link
@@ -334,8 +339,8 @@ export default function SearchScreen() {
               ))}
             </ul>
           </div>
-          <div>
-            <h3 className="text-bold">PRICE</h3>
+          <div className="filter">
+            <h3>Price</h3>
             <ul>
               <li>
                 <Link
@@ -357,103 +362,111 @@ export default function SearchScreen() {
               ))}
             </ul>
           </div>
-          <div>
-            <h3 className="text-bold">RATING</h3>
+          <div className="filter">
+            <h3>Average Customer Rating</h3>
             <ul>
               {ratings.map((r) => (
                 <li key={r.name}>
                   <Link
                     to={getFilterUrl({ rating: r.rating })}
-                    className={
-                      `${r.rating}` === `${rating}` ? 'text-bold selected' : ''
-                    }
+                    className={`${r.rating}` === `${rating}` ? 'text-bold' : ''}
                   >
-                    <Rating caption={' & up'} rating={r.rating}></Rating>
+                    <Rating caption={' '} rating={r.rating}></Rating>
                   </Link>
                 </li>
               ))}
               <li>
                 <Link
                   to={getFilterUrl({ rating: 'all' })}
-                  className={rating === 'all' ? 'text-bold selected' : ''}
+                  className={rating === 'all' ? 'text-bold' : ''}
                 >
-                  <Rating caption={' & up'} rating={0}></Rating>
+                  <Rating caption={' '} rating={0}></Rating>
                 </Link>
               </li>
             </ul>
           </div>
         </Col>
-        <Col md={9}>
+
+        <Col md={9} className="sortBy">
           {loading ? (
             <LoadingBox></LoadingBox>
           ) : error ? (
             <MessageBox variant="danger">{error}</MessageBox>
           ) : (
             <>
-              <div>
-                <Row>
-                  <h2>YOGA MATS</h2>
-                  <p>
-                    Designed with devotion and meticulously crafted for yogis at
-                    any stage, our mats are a harmonious blend of comfort and
-                    stability. Imagine them as the soft clouds of the fitness
-                    cosmos, supporting your joints as you delve into the depths
-                    of downward dogs and the spirit of warrior poses.
-                  </p>
-                  <p>
-                    Whether you're a seasoned yogi or a tentative explorer, our
-                    mats offer the foundation for your practice, both physically
-                    and metaphorically. These mats aren't mere floor coverings;
-                    they're a path to enlightenment for your body and soul.
-                  </p>
-                  <p>
-                    So, why wait? Immerse yourself in the world of Ommatopia,
-                    where every unrolling leads to a fresh experience of
-                    tranquility. Let's embark on this voyage together – Unroll
-                    Your Zen NOW!
-                  </p>
-                </Row>
-              </div>
-              <Row className="justify-content-between mb-3">
+              {/* <Row className="justify-content-between mb-3"> */}
+              <Row>
+                <div className="results my-3">
+                  {countProducts === 0 ? 'No' : countProducts} Results
+                  {query !== 'all' && ' : ' + query}
+                  {category !== 'all' && ' : ' + category}
+                  {type !== 'all' && ' : ' + type}
+                  {colour !== 'all' && ' : ' + colour}
+                  {material !== 'all' && ' : ' + material}
+                  {thickness !== 'all' && ' : ' + thickness}
+                  {price !== 'all' && ' : Price ' + price}
+                  {rating !== 'all' && ' : Rating ' + rating + ' & up'}
+                  {query !== 'all' ||
+                  category !== 'all' ||
+                  type !== 'all' ||
+                  colour !== 'all' ||
+                  material !== 'all' ||
+                  thickness !== 'all' ||
+                  rating !== 'all' ||
+                  price !== 'all' ? (
+                    <Button variant="light" onClick={() => navigate('/search')}>
+                      <i className="fas fa-times-circle"></i>
+                    </Button>
+                  ) : null}
+                </div>
+              </Row>
+              <Row>
                 <Col md={6}>
-                  <div>
-                    {countProducts === 0 ? 'No' : countProducts} Results
-                    {query !== 'all' && ' : ' + query}
-                    {category !== 'all' && ' : ' + category}
-                    {brand !== 'all' && ' : ' + brand}
-                    {colour !== 'all' && ' : ' + colour}
-                    {price !== 'all' && ' : Price ' + price}
-                    {rating !== 'all' && ' : Rating ' + rating + ' & up'}
-                    {query !== 'all' ||
-                    category !== 'all' ||
-                    brand !== 'all' ||
-                    colour !== 'all' ||
-                    rating !== 'all' ||
-                    price !== 'all' ? (
-                      <Button
-                        variant="light"
-                        onClick={() => navigate('/search')}
+                  <div className="refineSortContainer">
+                    <div
+                      className="refine refineBy-toggle-button pointer"
+                      onClick={() => setRefineByCollapsed(!refineByCollapsed)}
+                    >
+                      <i className="fas fa-filter"> </i>
+                      FILTER BY
+                    </div>
+                    <div className="sortBy">
+                      Sort by{' '}
+                      <select
+                        value={order}
+                        onChange={(e) => {
+                          navigate(getFilterUrl({ order: e.target.value }));
+                        }}
                       >
-                        <i className="fas fa-times-circle"></i>
-                      </Button>
-                    ) : null}
+                        <option value="newest">Newest First</option>
+                        <option value="lowest">Price: Low to High</option>
+                        <option value="highest">Price: High to Low</option>
+                        <option value="topRated">
+                          Average Customer Rating
+                        </option>
+                      </select>
+                    </div>
                   </div>
                 </Col>
-                <Col className="text-end">
-                  Sort by{' '}
-                  <select
-                    value={order}
-                    onChange={(e) => {
-                      navigate(getFilterUrl({ order: e.target.value }));
-                    }}
-                  >
-                    <option value="newest">Newest First</option>
-                    <option value="lowest">Price: Low to High</option>
-                    <option value="highest">Price: High to Low</option>
-                    <option value="topRated">Average Customer Rating</option>
-                  </select>
+                <Col>
+                  {/* <div className="sortBy text-end"> */}
+                  <div className="sortBy">
+                    Sort by{' '}
+                    <select
+                      value={order}
+                      onChange={(e) => {
+                        navigate(getFilterUrl({ order: e.target.value }));
+                      }}
+                    >
+                      <option value="newest">Newest First</option>
+                      <option value="lowest">Price: Low to High</option>
+                      <option value="highest">Price: High to Low</option>
+                      <option value="topRated">Average Customer Rating</option>
+                    </select>
+                  </div>
                 </Col>
               </Row>
+
               {products.length === 0 && (
                 <MessageBox>No Product Found</MessageBox>
               )}
@@ -464,7 +477,7 @@ export default function SearchScreen() {
                   </Col>
                 ))}
               </Row>
-              <div className="mb-3">
+              <div>
                 {[...Array(pages).keys()].map((x) => (
                   <LinkContainer
                     key={x + 1}
