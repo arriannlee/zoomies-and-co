@@ -38,6 +38,8 @@ ul {
   /* font-size: 1.1rem; */
   display: flex;
   justify-content: center;
+  text-transform: uppercase;
+  max-height: 1.8rem;
 }
 
 .dwlDescription {

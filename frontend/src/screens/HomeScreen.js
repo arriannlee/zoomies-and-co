@@ -58,25 +58,33 @@ function HomeScreen() {
       <Container className="carousel">
         <Carousel>
           <Carousel.Item>
-            {/* <a href="/search" onClick={() => navigate('/search')}> */}
             <Image
               className="d-block w-100"
               src="/images/foralllevels.jpg"
-              alt="First slide"
+              alt="Crafted For Yogis Of All Levels"
             />
             <Carousel.Caption className="center-caption">
               <h2>Crafted for yogis of all levels</h2>
             </Carousel.Caption>{' '}
-            {/* </a> */}
+          </Carousel.Item>
+          <Carousel.Item>
+            <Image
+              className="d-block w-100"
+              src="/images/unrollmat.jpg"
+              alt="Free Delivery On All Orders Over £30"
+            />
+            <Carousel.Caption className="center-caption">
+              <h2>unroll free delivery on all orders over £30</h2>
+            </Carousel.Caption>{' '}
           </Carousel.Item>
           <Carousel.Item>
             <Image
               className="d-block w-100"
               src="/images/teacherdiscount.jpg"
-              alt="First slide"
+              alt="Studio & Yoga TEacher Discount Available"
             />
             <Carousel.Caption className="center-caption">
-              <h2>STUDIO & YOGA TEACHER DISCOUNT</h2>
+              <h2>STUDIO & YOGA TEACHER DISCOUNT available</h2>
             </Carousel.Caption>{' '}
           </Carousel.Item>
         </Carousel>

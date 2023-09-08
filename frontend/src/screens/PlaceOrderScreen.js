@@ -167,6 +167,7 @@ export default function PlaceOrderScreen() {
                     <Button
                       type="button"
                       onClick={placeOrderHandler}
+                      // disabled={true}
                       disabled={basket.basketItems.length === 0}
                     >
                       Place Order
