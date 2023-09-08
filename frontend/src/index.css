@@ -418,13 +418,6 @@ li {
   font-weight: bold;
 }
 
-/* .fixed-overview {
-  height: 650px;
-} */
-
-/* footer {
-  color: white;
-} */
 .socialIcons {
   display: flex;
   justify-content: center; /* Center horizontally */
