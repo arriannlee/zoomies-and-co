@@ -27,7 +27,7 @@ const ContinuousTextCarousel = () => {
     >
       {textItems.map((item, index) => (
         <Carousel.Item key={index} className="carouselItem">
-          <h5 className="carouselText">{item}</h5>
+          <h4 className="carouselText">{item}</h4>
         </Carousel.Item>
       ))}
     </Carousel>

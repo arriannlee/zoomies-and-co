@@ -63,9 +63,9 @@ function HomeScreen() {
               src="/images/foralllevels.jpg"
               alt="Crafted For Yogis Of All Levels"
             />
-            <Carousel.Caption className="center-caption">
+            <Carousel.Caption className="carouselCaption">
               <h2>Crafted for yogis of all levels</h2>
-            </Carousel.Caption>{' '}
+            </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <Image
@@ -73,7 +73,7 @@ function HomeScreen() {
               src="/images/unrollmat.jpg"
               alt="Free Delivery On All Orders Over £30"
             />
-            <Carousel.Caption className="center-caption">
+            <Carousel.Caption className="carouselCaption">
               <h2>unroll free delivery on all orders over £30</h2>
             </Carousel.Caption>{' '}
           </Carousel.Item>
@@ -83,7 +83,7 @@ function HomeScreen() {
               src="/images/teacherdiscount.jpg"
               alt="Studio & Yoga TEacher Discount Available"
             />
-            <Carousel.Caption className="center-caption">
+            <Carousel.Caption className="carouselCaption">
               <h2>STUDIO & YOGA TEACHER DISCOUNT available</h2>
             </Carousel.Caption>{' '}
           </Carousel.Item>
@@ -93,9 +93,9 @@ function HomeScreen() {
       <div className="mainContentSection">
         <Container className="contentDescription">
           <h2 className="my-3">Uniquely designed yoga mats</h2>
-          <p>
+          <h4>
             Our top selling yoga mats - for the yogi who wants to be different
-          </p>
+          </h4>
         </Container>
         {loading ? (
           <LoadingBox />

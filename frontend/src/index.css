@@ -1,23 +1,45 @@
-main {
-  padding-top: 0;
-  margin-bottom: 60px; /* Adjust the value to match the height of your footer */
-}
-header {
-  margin-bottom: 0;
-  padding: 0; /* Remove any bottom margin */
+/* Reset */
+a:link,
+body,
+html,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+img,
+button,
+input,
+select,
+textarea {
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
-body {
-  margin: 0;
-  /* padding: 0; */
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 a:link {
   text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  margin: 0;
+  appearance: none;
+  outline: none;
+  border: none;
+}
+
+button {
+  background: none;
+  cursor: pointer;
 }
 
 ul {
@@ -27,27 +49,169 @@ ul {
   border: 0;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+main {
+  padding-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+header {
+  margin-bottom: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 16px;
+  color: #131a26;
+}
+
+a:link {
+  color: #131a26;
+}
+
+/* Font */
+
 .strong {
   font-weight: bold;
 }
 
+/* Default font sizes for headings */
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+h4 {
+  font-size: 1rem;
+}
+
+h5 {
+  font-size: 0.875rem;
+}
+
+h6 {
+  font-size: 0.75rem;
+}
+
+/* Media query for screens smaller than 768px (typical mobile screens) */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+  }
+
+  h5 {
+    font-size: 0.75rem;
+  }
+
+  h6 {
+    font-size: 0.625rem;
+  }
+}
+
+/* Media query for screens between 768px and 1024px (tablets, etc.) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+  }
+
+  h4 {
+    font-size: 0.9rem;
+  }
+
+  h5 {
+    font-size: 0.8rem;
+  }
+
+  h6 {
+    font-size: 0.7rem;
+  }
+}
+
+/* Media query for screens larger than 1024px (desktops) */
+@media (min-width: 1025px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+  }
+
+  h5 {
+    font-size: 1rem;
+  }
+
+  h6 {
+    font-size: 0.875rem;
+  }
+}
+
+/* Button */
+
 /* Header */
 
 .ctaBar {
-  color: #fff; /* Change the text color */
-  /* font-size: 1.1rem; */
+  color: #fff;
   display: flex;
   justify-content: center;
   text-transform: uppercase;
-  max-height: 1.8rem;
 }
 
-.dwlDescription {
+/* Designed With Love */
+/* .dwlDescription {
   height: 200px;
   padding: 2rem;
 
   text-align: center;
-}
+} */
 
 /* header {
   background-color: var(--dark-alt);
@@ -60,14 +224,8 @@ header a {
   text-decoration: none;
 } */
 
-.body {
-  color: #131a26;
-}
 /* Font Size  */
 
-h3 {
-  font-size: 1rem;
-}
 .site-container {
   min-height: 100vh;
 }
@@ -217,36 +375,47 @@ li {
   text-align: center;
 } */
 
-/*  Product */
+/*  Product Card */
 
-.overviewName {
+.productCard {
+  /* border: 0; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.productCardName {
   text-align: center;
-  height: 100px;
+  height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #131a26;
+  /* color: #131a26; */
 }
 
-.overviewPrice {
+/* Mobile Phones (Portrait) */
+@media (max-width: 480px) {
+  .productCardName {
+    height: 60px;
+  }
+}
+
+/* Mobile Phones (Landscape) */
+@media (min-width: 481px) and (max-width: 570px) {
+  .productCardName {
+    height: 40px;
+    padding: 0 1.5rem;
+  }
+}
+
+.productCardPrice {
   text-align: center;
-  height: 25px;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.overviewRating {
-  height: 20px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* .nameRating {
-  height: 100px;
-} */
 /* Product Screen */
 
 .productMainImg {
@@ -400,20 +569,41 @@ li {
 .contentDescription {
   text-align: center;
   text-transform: uppercase;
+  margin-bottom: 1.5rem;
 }
 
 .carousel {
   margin-top: -1rem; /* Adjust this value based on your Navbar's height */
 }
 .carousel img {
-  max-height: 600px;
+  /* max-height: 600px; */
   width: 100%;
 }
 
-.center-caption {
+@media (max-width: 768px) {
+  .carousel-image {
+    max-width: 100%; /* Ensure the image doesn't exceed its container */
+    height: auto; /* Maintain the image's aspect ratio */
+  }
+
+  .carouselCaption h2 {
+    font-size: 1rem;
+    color: #232323;
+    background-color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    padding: 0.5rem 0;
+    margin: 0;
+    border: 0;
+  }
+}
+
+.carouselCaption h2 {
   color: #232323;
   background-color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
+  padding: 0.5rem 0;
+  margin: 0;
+  border: 0;
 }
 
 .brandColour {
@@ -449,4 +639,62 @@ li {
 
 .brandColour {
   color: #007bff;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.btn.custom-button {
+  /* Add your centering styles here */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 250px; /* Adjust the maximum width as needed */
+  width: auto;
+}
+
+/* Media screen sizes */
+
+/* Mobile Phones (Portrait) */
+@media (max-width: 480px) {
+  /* Your CSS styles for small mobile phones (portrait) */
+}
+
+/* Mobile Phones (Landscape) */
+@media (min-width: 481px) and (max-width: 767px) {
+  /* Your CSS styles for small mobile phones (landscape) */
+}
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* Your CSS styles for tablets */
+}
+
+/* Small Laptops and Desktops */
+@media (min-width: 1025px) and (max-width: 1366px) {
+  /* Your CSS styles for small laptops and desktops */
+}
+
+/* Medium to Large Desktops */
+@media (min-width: 1367px) and (max-width: 1680px) {
+  /* Your CSS styles for medium to large desktops */
+}
+
+/* Large Desktops and Beyond */
+@media (min-width: 1681px) {
+  /* Your CSS styles for large desktops and beyond */
+}
+
+/* High-DPI (Retina) Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Your CSS styles for high-DPI displays */
+}
+
+/* Print Media */
+@media print {
+  /* Your CSS styles for printing a web page */
 }

@@ -29,7 +29,7 @@ function Product(props) {
     });
   };
   return (
-    <Card className="fixed-overview">
+    <Card className="productCard">
       <Link to={`/product/${product.slug}`}>
         <img
           src={product.image}
@@ -38,7 +38,7 @@ function Product(props) {
         />
       </Link>
       <Card.Body>
-        <div className="nameRating">
+        <div className="productCardName">
           <Link to={`/product/${product.slug}`}>
             <Card.Title className="overviewName">
               {product.type} {product.colourDescription} {product.category}
@@ -50,18 +50,23 @@ function Product(props) {
         </div>
 
         <Row>
-          <Card.Text className="overviewPrice">
-            <h5>£{product.price}</h5>
+          <Card.Text className="productCardPrice">
+            <h4>£{product.price}</h4>
           </Card.Text>
-          {product.countInStock === 0 ? (
-            <Button variant="light" disabled>
-              Out of Stock
-            </Button>
-          ) : (
-            <Button onClick={() => addToBasketHandler(product)}>
-              Add to Basket{' '}
-            </Button>
-          )}
+          <div className="center">
+            {product.countInStock === 0 ? (
+              <Button className="btn-custom center" variant="light" disabled>
+                Out of Stock
+              </Button>
+            ) : (
+              <Button
+                className="btn custom-button"
+                onClick={() => addToBasketHandler(product)}
+              >
+                Add to Basket
+              </Button>
+            )}
+          </div>
         </Row>
       </Card.Body>
     </Card>
