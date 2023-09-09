@@ -63,6 +63,11 @@ main {
 header {
   margin-bottom: 0;
   padding: 0;
+  /* border-bottom: #007bff 0.25rem solid; */
+}
+
+footer {
+  border-top: #007bff 0.25rem solid;
 }
 
 body {

@@ -33,7 +33,7 @@ function Product(props) {
       <Link to={`/product/${product.slug}`}>
         <img
           src={product.image}
-          className="card-img-top img-med"
+          className="card-img-top img-large"
           alt={product.name}
         />
       </Link>
